@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#173e38">
+  <meta name="description" content="Interaktywna układanka C++ JP_3_5: operacje, warunki i poprawna kolejność instrukcji.">
+  <title>JP_3_5 · Ułóż program C++</title>
+  <style>
+    :root{color-scheme:light;--paper:#f5f4ef;--ink:#203934;--muted:#5b6c66;--green:#173e38;--lime:#d5eb98;--line:#dce2d8;--orange:#f6c17c;--red:#a33727}
+    *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.55}button{font:inherit;cursor:pointer}button:disabled{cursor:default;opacity:.35}button:focus-visible,summary:focus-visible,a:focus-visible{outline:3px solid #ac6500;outline-offset:3px}button{touch-action:manipulation}a{color:var(--green)}
+    .topbar{border-bottom:1px solid var(--line);padding:17px max(24px,calc((100vw - 1320px)/2));display:flex;align-items:center;justify-content:space-between;gap:15px;background:#fff}.brand{display:flex;gap:12px;align-items:center;font-weight:750}.logo{background:var(--green);color:var(--lime);border-radius:10px;padding:5px 10px;font-family:monospace;font-size:21px}.course{color:var(--muted);font-size:13px}.badge{border:1px solid var(--line);border-radius:30px;padding:4px 12px;font-size:12px;white-space:nowrap}
+    main{max-width:1368px;padding:36px 24px 48px;margin:auto}.eyebrow{text-transform:uppercase;letter-spacing:.15em;font-size:12px;font-weight:750;color:#55705e}.intro{display:flex;justify-content:space-between;gap:25px;align-items:end;margin-bottom:28px}h1{font-size:clamp(32px,4vw,50px);letter-spacing:-.045em;line-height:1.12;margin:9px 0 14px}h1 span{color:#65843e}.intro p{max-width:700px;margin:0;color:var(--muted);font-size:16px}.lesson-mark{font-family:monospace;font-size:54px;color:#c6cfba;white-space:nowrap}
+    .layout{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:24px;align-items:start}.panel{background:white;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 6px 24px #20393405}.panel-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:20px 22px;border-bottom:1px solid var(--line)}h2{font-size:18px;letter-spacing:-.02em;margin:0}h3{font-size:14px;margin:0 0 8px}.subtle{color:var(--muted);font-size:12px}.file{font-family:monospace;font-size:13px;color:var(--muted)}.dot{display:inline-block;width:7px;height:7px;background:#7b945b;border-radius:50%;margin-right:7px}
+    .toolbar{padding:12px 20px;background:#fafbf8;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:12px;color:var(--muted)}.code-scroll{max-height:760px;overflow:auto;scrollbar-gutter:stable;padding:12px 10px;background:#fcfcfa}.lines{padding:0;margin:0;list-style:none}.code-row{display:flex;align-items:center;gap:5px;min-height:43px;border:1px solid transparent;border-bottom-color:#edf0e9;border-radius:6px;position:relative}.code-row:hover,.code-row:focus-within{background:#eef2e8;border-color:#d5ddcc}.code-row.checked{background:#f0f7e5}.code-row.mismatch{background:#fff0e1;border:1px solid #c98431}.code-row.dragging{opacity:.4}.code-row.drop-before{box-shadow:0 -3px 0 #34725e}.code-row.drop-after{box-shadow:0 3px 0 #34725e}.handle{color:#758374;font-size:19px;cursor:grab;user-select:none;width:18px;text-align:center;flex-shrink:0}.number{font:11px monospace;color:#748173;width:23px;text-align:right;flex-shrink:0}.code{white-space:pre;flex:1;overflow-x:auto;padding:9px 5px;font:12px/1.7 Consolas,"Cascadia Code",monospace;tab-size:4}.kw{color:#79539a}.str{color:#8b4a20}.io{color:#19665a}.move{display:flex;gap:2px;padding:0 4px}.move button{border:1px solid #d6dece;border-radius:5px;background:#fff;color:#34523e;width:28px;height:29px;line-height:1;padding:0}.move button:hover:enabled{background:var(--lime)}
+    .actions{padding:18px 20px;display:flex;gap:9px;flex-wrap:wrap;border-top:1px solid var(--line)}.btn{border-radius:9px;border:1px solid #d4ddcf;background:#fff;color:var(--green);padding:10px 15px;font-size:13px;font-weight:650}.btn:hover{background:#eef2e7}.btn.primary{background:var(--green);border-color:var(--green);color:#fff}.btn.primary:hover{background:#285b4c}.btn.quiet{border-color:transparent;background:transparent;font-weight:500}.feedback{margin:0 20px 18px;border-radius:10px;background:#f0f3ec;padding:13px 15px;font-size:13px}.feedback strong{display:block;margin-bottom:4px}.feedback[data-state="error"]{background:#fff0df}.feedback[data-state="success"]{background:#edf5d9}.progress{height:4px;background:#e7ebdf}.progress div{height:100%;width:0;background:#76954c;transition:width .2s}.code-preview{margin:0 20px 18px;font-size:13px}.code-preview summary{cursor:pointer;color:var(--muted)}pre{white-space:pre-wrap;overflow-wrap:anywhere;font:12px/1.7 Consolas,monospace}.code-preview pre{padding:12px;background:#f5f6f1;border-radius:8px}
+    aside{display:grid;gap:18px}.brief{padding:23px}.section-index{font:11px monospace;letter-spacing:.08em;color:#788565;margin-bottom:10px}.brief h2{font-size:20px;margin-bottom:15px}.requirements{padding-left:21px;font-size:13px;margin:0}.requirements li{padding-left:4px;margin:12px 0}.pill{background:#eef1e7;border-radius:5px;padding:1px 5px;font-family:monospace}.note{margin-top:20px;border-left:3px solid #9ab467;padding:2px 0 2px 12px;font-size:12px;color:var(--muted)}.examples{background:var(--green);color:white;border-radius:18px;padding:22px}.examples h2{color:#f4f7ed}.tabs{display:flex;gap:5px;margin:16px 0}.tab{flex:1;border:1px solid #6a867a;border-radius:6px;background:transparent;color:#edf1e5;padding:7px;font-size:12px}.tab[aria-selected="true"]{background:var(--lime);color:var(--green);border-color:var(--lime)}.console{background:#102f2a;border-radius:9px;padding:14px;min-height:193px}.console-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:#b4c7ad;margin:0 0 5px}.console pre{color:#e7efd8;margin:0 0 18px}.console pre:last-child{margin:0;color:var(--lime)}.example-note{font-size:11px;color:#c5d4c0;margin:12px 0 0}.help{padding:21px;font-size:12px}.help summary{font-size:14px;font-weight:650;cursor:pointer}.help ol{padding-left:18px}.help li{margin:9px 0}.help p{color:var(--muted)}kbd{border:1px solid #cbd5c1;border-radius:4px;padding:1px 4px;background:#f5f6f0;font:11px monospace}.foot{display:flex;justify-content:space-between;gap:15px;margin-top:22px;font-size:11px;color:var(--muted)}dialog{max-width:430px;width:calc(100% - 32px);border:1px solid var(--line);border-radius:16px;padding:25px;color:var(--ink)}dialog::backdrop{background:#102f2aa8}dialog p{font-size:14px}dialog .actions{border:0;padding:12px 0 0}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}.noscript{background:#fff0df;padding:20px}
+    @media(min-width:1450px){.code{font-size:13px}}@media(max-width:1000px){.layout{grid-template-columns:minmax(0,1fr) 295px}.code{font-size:11px}.move button{width:26px}.panel-head{padding:16px}.lesson-mark{display:none}}@media(max-width:760px){main{padding:25px 12px}.layout{grid-template-columns:1fr}.intro{padding:0 7px}.topbar{padding:12px 18px}.course{display:none}aside{grid-template-columns:1fr 1fr}.brief{grid-column:1/-1}.requirements{display:grid;grid-template-columns:1fr 1fr;column-gap:25px}.code-scroll{max-height:none;padding:8px 3px}.code{font-size:12px}.toolbar{padding:10px 12px}.foot{flex-direction:column;gap:3px}.actions{padding:15px 12px}.feedback{margin:0 12px 15px}}@media(max-width:480px){aside{grid-template-columns:1fr}.requirements{display:block}.code{font-size:11px}.handle{width:13px}.number{width:18px}.move{gap:1px;padding-right:1px}.move button{width:27px;height:34px}.code-row{gap:2px}.toolbar{align-items:start}.badge{font-size:10px}.btn{padding:10px 12px}.file{font-size:11px}}
+    @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+  </style>
+</head>
+<body>
+  <header class="topbar"><div class="brand"><span class="logo" aria-hidden="true">{ }</span><span>Pracownia C++ <span class="course">/ laboratorium · pierwszy rok</span></span></div><span class="badge">JP_3_5</span></header>
+  <main>
+    <section class="intro" aria-labelledby="title"><div><div class="eyebrow">Warunki · wejście i wyjście</div><h1>Dobry program zaczyna się<br>od <span>dobrej kolejności.</span></h1><p>Wszystkie potrzebne linie już tu są. Uporządkuj je tak, aby program poprawnie dodawał, odejmował i reagował na błędny znak operacji.</p></div><div class="lesson-mark" aria-hidden="true">+ / −</div></section>
+    <noscript><p class="noscript">Włącz JavaScript w przeglądarce, aby uruchomić układankę.</p></noscript>
+    <div class="layout">
+      <section class="panel" aria-labelledby="puzzle-title">
+        <div class="panel-head"><div><h2 id="puzzle-title">Ułóż program</h2><span class="subtle">Przeciągnij linie lub użyj przycisków ↑ ↓.</span></div><span class="file"><span class="dot"></span>main.cpp</span></div>
+        <div class="toolbar"><span id="line-count"></span><span id="attempts">Sprawdzenia: 0</span></div>
+        <div class="code-scroll"><ol class="lines" id="lines" aria-label="Linie programu w aktualnej kolejności" aria-describedby="keyboard-help"></ol></div>
+        <div class="progress" role="progressbar" aria-label="Poprawny początek programu po sprawdzeniu" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="progress-fill"></div></div>
+        <div class="actions"><button class="btn primary" id="check" type="button">Sprawdź kolejność <span aria-hidden="true">↗</span></button><button class="btn" id="reset" type="button">↻ Pomieszaj od nowa</button><button class="btn quiet" id="solution" type="button">Pokaż rozwiązanie</button></div>
+        <div id="feedback" class="feedback" role="status" aria-live="polite" aria-atomic="true"><strong>Twoja kolej.</strong><span>Najpierw ułóż początek programu. Pamiętaj, aby sprawdzić znak operacji przed wczytaniem liczb.</span></div>
+        <details class="code-preview"><summary>Podgląd aktualnego kodu do skopiowania</summary><pre id="source"></pre></details>
+      </section>
+      <aside aria-label="Treść zadania i pomoc">
+        <section class="panel brief"><div class="section-index">01 / TWOJE ZADANIE</div><h2>Dwie operacje.<br>Jeden ważny warunek.</h2><ol class="requirements"><li>Wczytaj znak operacji do zmiennej typu <span class="pill">char</span>.</li><li>Dla <span class="pill">+</span> lub <span class="pill">-</span> wczytaj dwie liczby typu <span class="pill">double</span>, wypisz nazwę operacji i wynik.</li><li>Dla innego znaku wypisz <span class="pill">Niedozwolona operacja:</span> oraz ten znak. Zakończ program <strong>przed wczytaniem liczb</strong>.</li></ol><div class="note">Wskazówka: znak jest nieprawidłowy, gdy jednocześnie nie jest plusem <strong>i</strong> nie jest minusem.</div></section>
+        <section class="examples" aria-labelledby="examples-title"><div class="section-index" style="color:#bacba9">02 / OCZEKIWANE ZACHOWANIE</div><h2 id="examples-title">Sprawdź na przykładzie</h2><div class="tabs" role="tablist" aria-label="Przykłady operacji"><button class="tab" id="tab-plus" type="button" role="tab" aria-selected="true" aria-controls="example" tabindex="0" data-example="plus">+ Dodaj</button><button class="tab" id="tab-minus" type="button" role="tab" aria-selected="false" aria-controls="example" tabindex="-1" data-example="minus">− Odejmij</button><button class="tab" id="tab-invalid" type="button" role="tab" aria-selected="false" aria-controls="example" tabindex="-1" data-example="invalid">* Błąd</button></div><div class="console" id="example" role="tabpanel" aria-labelledby="tab-plus" tabindex="0"><p class="console-label">Dane wejściowe</p><pre id="example-input"></pre><p class="console-label">Oczekiwany komunikat</p><pre id="example-output"></pre></div><p class="example-note">To przykłady wzorcowe, niezależne od ułożenia linii. Liczby wpisuj z kropką dziesiętną.</p></section>
+        <details class="panel help" open><summary>Jak pracować z układanką?</summary><ol><li>Przesuwaj linie za uchwyt ⠿ lub przyciskami ↑ ↓. Na telefonie używaj przycisków.</li><li id="keyboard-help">Klawiatura: przejdź klawiszem <kbd>Tab</kbd> do przycisku linii, potem użyj <kbd>Alt</kbd> + <kbd>↑</kbd> / <kbd>↓</kbd>. Przyciski działają też przez <kbd>Enter</kbd> lub spację.</li><li>Wybierz „Sprawdź kolejność”. Podpowiedź dotyczy pierwszego naruszenia zasad; zielone linie oznaczają poprawny początek.</li><li>„Pomieszaj od nowa” losuje kolejność i zeruje licznik sprawdzeń. „Pokaż rozwiązanie” wymaga potwierdzenia.</li></ol><p><strong>Zasada oceny:</strong> deklaracje mogą być przed lub po komunikatach <span class="pill">cout</span>, ale muszą poprzedzać odpowiednie <span class="pill">cin</span> i obejmować zakresem wszystkie użycia zmiennych. Można je umieścić bezpośrednio w <span class="pill">main</span> lub przed funkcją jako zmienne globalne. Deklaracja liczb może też poprzedzać walidację znaku. Pozostałe instrukcje porównujemy z wzorcem dydaktycznym. Identyczne klamry i instrukcje <span class="pill">return 0;</span> są zamienne.</p><p><strong>Sprawdzamy kolejność, nie kompilację.</strong> Strona nie wykonuje C++, nie wysyła kodu i nie zapisuje ocen. Odświeżenie zaczyna nowe ćwiczenie.</p><p><strong>O liczbach:</strong> program używa domyślnego formatowania <span class="pill">cout</span> (6 cyfr znaczących), bez wymuszania dwóch miejsc po przecinku. Nie porównuje wyników typu <span class="pill">double</span> operatorem <span class="pill">==</span>. Zakładamy poprawne dane liczbowe po dozwolonym znaku operacji.</p></details>
+      </aside>
+    </div>
+    <footer class="foot"><span>JP_3_5 · Parsons puzzle · C++11 lub nowszy</span><span>Bez logowania. Bez serwera. W Twojej przeglądarce.</span></footer>
+  </main>
+  <dialog id="solution-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-description"><h2 id="dialog-title">Odkryć poprawną kolejność?</h2><p id="dialog-description">Wszystkie linie zostaną ustawione według wzorca. Możesz potem ponownie je pomieszać i spróbować samodzielnie.</p><form method="dialog"><div class="actions"><button class="btn primary" value="cancel" autofocus>Jeszcze spróbuję</button><button class="btn" value="reveal">Pokaż rozwiązanie</button></div></form></dialog>
+  <div class="sr-only" id="movement" role="status" aria-live="polite" aria-atomic="true"></div>
+  <script>
+    'use strict';
+    const definitions = [
+      ['#include <iostream>', 'Zacznij od biblioteki potrzebnej do cin i cout.'],
+      ['using namespace std;', 'Po dołączeniu biblioteki udostępnij nazwy ze std.'],
+      ['int main() {', 'Otwórz funkcję main, zanim umieścisz w niej instrukcje.'],
+      ['char operacja;', 'Zadeklaruj znak operacji przed jego użyciem.'],
+      ['cout << "Podaj operacje (+ lub -): ";', 'Najpierw poproś o znak operacji.'],
+      ['cin >> operacja;', 'Wczytaj znak, zanim sprawdzisz jego wartość.'],
+      ["if (operacja != '+' && operacja != '-') {", 'Teraz sprawdź, czy znak nie jest ani plusem, ani minusem (operator &&).'],
+      ['cout << "Niedozwolona operacja: " << operacja << endl;', 'W gałęzi błędnego znaku wypisz komunikat oraz wczytany znak.'],
+      ['return 0;', 'Po komunikacie błędu zakończ program, zanim wczytasz liczby.'],
+      ['}', 'Zamknij blok obsługi niedozwolonej operacji.'],
+      ['double pierwsza, druga;', 'Dla dozwolonej operacji przygotuj dwie zmienne typu double.'],
+      ['cout << "Podaj dwie liczby: ";', 'Po walidacji znaku poproś o dwie liczby.'],
+      ['cin >> pierwsza >> druga;', 'Wczytaj obie liczby, zanim wykonasz działanie.'],
+      ["if (operacja == '+') {", 'Po wczytaniu liczb sprawdź, czy wybrano dodawanie.'],
+      ['cout << "Wykonuje dodawanie, suma to: " << pierwsza + druga << endl;', 'W gałęzi plusa wypisz nazwę operacji i sumę.'],
+      ['} else {', 'Gałąź else obsługuje minus: inne znaki zostały już odrzucone.'],
+      ['cout << "Wykonuje odejmowanie, roznica to: " << pierwsza - druga << endl;', 'W gałęzi else wypisz nazwę operacji i różnicę pierwsza - druga.'],
+      ['}', 'Zamknij warunek wyboru działania.'],
+      ['return 0;', 'Po wykonaniu działania zakończ funkcję main.'],
+      ['}', 'Na końcu zamknij funkcję main.']
+    ];
+    const pieces = definitions.map(([text, hint], index) => ({id: String(index), text, hint}));
+    const byId = new Map(pieces.map(piece => [piece.id, piece]));
+    function assessOrder(candidate) {
+      const declarations = new Map([
+        ['char operacja;', 'cin >> operacja;'],
+        ['double pierwsza, druga;', 'cin >> pierwsza >> druga;']
+      ]);
+      const instructions = pieces.filter(piece => !declarations.has(piece.text));
+      const declaredInputs = new Set();
+      let instructionIndex = 0;
+      let depth = 0;
+      for (let index = 0; index < candidate.length; index += 1) {
+        const text = byId.get(candidate[index]).text;
+        if (declarations.has(text)) {
+          if (depth > 1) {
+            return {prefix:index, hint:'Przenieś deklarację poza blok if lub else, przed odpowiednie cin. Zmienna musi być dostępna również w dalszej części programu.'};
+          }
+          declaredInputs.add(declarations.get(text));
+          continue;
+        }
+        const expected = instructions[instructionIndex];
+        if (text !== expected.text) return {prefix:index, hint:expected.hint};
+        if ([...declarations.values()].includes(text) && !declaredInputs.has(text)) {
+          const names = text === 'cin >> operacja;' ? 'operacja' : 'pierwsza i druga';
+          return {prefix:index, hint:'Przed tą instrukcją cin zadeklaruj ' + names + '. Deklaracja może być przed lub po poprzednim komunikacie cout, ale musi poprzedzać użycie zmiennej.'};
+        }
+        if (text.startsWith('}')) depth -= 1;
+        if (text.endsWith('{')) depth += 1;
+        instructionIndex += 1;
+      }
+      return {prefix:candidate.length, hint:''};
+    }
+    const list = document.getElementById('lines');
+    const feedback = document.getElementById('feedback');
+    const dialog = document.getElementById('solution-dialog');
+    let order = [];
+    let attempts = 0;
+    let checkedPrefix = -1;
+    let revealed = false;
+    let draggedId = null;
+    let dropPlacement = null;
+    const escapeHtml = value => value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#39;');
+    function colorCode(text) {
+      return text.split(/("(?:[^"\\]|\\.)*")/g).map((part, index) => index % 2 ? '<span class="str">' + escapeHtml(part) + '</span>' : escapeHtml(part).replace(/\b(using|namespace|int|char|double|if|else|return)\b/g, '<span class="kw">$1</span>').replace(/\b(cin|cout|endl)\b/g, '<span class="io">$1</span>')).join('');
+    }
+    function indentedLines() {
+      let depth = 0;
+      return order.map(id => {
+        const text = byId.get(id).text;
+        if (text.startsWith('}')) depth = Math.max(0, depth - 1);
+        const line = '    '.repeat(depth) + text;
+        if (text.endsWith('{')) depth += 1;
+        return line;
+      });
+    }
+    function setFeedback(title, message, state = '') {
+      feedback.dataset.state = state;
+      feedback.replaceChildren();
+      const heading = document.createElement('strong');
+      heading.textContent = title;
+      const body = document.createElement('span');
+      body.textContent = message;
+      feedback.append(heading, body);
+    }
+    function render(focusId, direction) {
+      const formatted = indentedLines();
+      list.replaceChildren();
+      order.forEach((id, index) => {
+        const piece = byId.get(id);
+        const row = document.createElement('li');
+        row.className = 'code-row';
+        row.dataset.id = id;
+        row.draggable = true;
+        if (checkedPrefix >= 0 && index < checkedPrefix) row.classList.add('checked');
+        if (index === checkedPrefix && checkedPrefix < order.length) row.classList.add('mismatch');
+        row.innerHTML = '<span class="handle" aria-hidden="true">⠿</span><span class="number" aria-hidden="true">' + (index + 1) + '</span><code class="code">' + colorCode(formatted[index]) + '</code><span class="move"><button type="button" data-direction="up">↑</button><button type="button" data-direction="down">↓</button></span>';
+        row.querySelectorAll('button').forEach(button => {
+          const up = button.dataset.direction === 'up';
+          button.disabled = up ? index === 0 : index === order.length - 1;
+          button.setAttribute('aria-label', 'Przesuń linię ' + (index + 1) + (up ? ' w górę: ' : ' w dół: ') + piece.text);
+          button.title = up ? 'W górę (Alt + ↑)' : 'W dół (Alt + ↓)';
+        });
+        list.append(row);
+      });
+      document.getElementById('source').textContent = formatted.join('\n') + '\n';
+      document.getElementById('line-count').textContent = order.length + ' linii · wcięcia dopasowują się do klamer';
+      document.getElementById('attempts').textContent = 'Sprawdzenia: ' + attempts;
+      const percent = checkedPrefix < 0 ? 0 : Math.round(checkedPrefix / order.length * 100);
+      document.querySelector('[role="progressbar"]').setAttribute('aria-valuenow', String(percent));
+      document.getElementById('progress-fill').style.width = percent + '%';
+      if (focusId !== undefined) {
+        const row = list.querySelector('[data-id="' + focusId + '"]');
+        const preferred = row.querySelector('[data-direction="' + direction + '"]');
+        (preferred && !preferred.disabled ? preferred : row.querySelector('button:not(:disabled)')).focus({preventScroll:true});
+        row.scrollIntoView({block:'nearest'});
+      }
+    }
+    function invalidate() {
+      checkedPrefix = -1;
+      revealed = false;
+      setFeedback('Kolejność zmieniona.', 'Sprawdź ponownie, gdy skończysz układanie. Wcięcia pokazują układ aktualnych klamer, a nie poprawność odpowiedzi.');
+    }
+    function move(id, direction) {
+      const from = order.indexOf(id);
+      const to = from + (direction === 'up' ? -1 : 1);
+      if (from < 0 || to < 0 || to >= order.length) return;
+      [order[from], order[to]] = [order[to], order[from]];
+      invalidate();
+      render(id, direction);
+      document.getElementById('movement').textContent = 'Przesunięto linię na pozycję ' + (to + 1) + ' z ' + order.length + '.';
+    }
+    function evaluate() {
+      attempts += 1;
+      const result = assessOrder(order);
+      checkedPrefix = result.prefix;
+      if (checkedPrefix === order.length) {
+        setFeedback(revealed ? 'To jest pokazane rozwiązanie.' : 'Dobra robota — kolejność jest poprawna!', 'Deklaracje poprzedzają użycie zmiennych i mają właściwy zakres. Nieprawidłowy znak kończy działanie przed wczytaniem liczb, a + i - prowadzą do właściwych obliczeń. Weryfikacja dotyczy kolejności; kompilacja nie jest wykonywana.', 'success');
+      } else {
+        const prefix = checkedPrefix ? 'Początkowe linie (' + checkedPrefix + ') spełniają zasady. ' : '';
+        setFeedback('Przyjrzyj się linii ' + (checkedPrefix + 1) + '.', prefix + result.hint + ' Dalsze linie sprawdzimy po poprawieniu tego miejsca.', 'error');
+      }
+      render();
+    }
+    function reset() {
+      order = pieces.map(piece => piece.id);
+      for (let index = order.length - 1; index > 0; index -= 1) {
+        const target = Math.floor(Math.random() * (index + 1));
+        [order[index], order[target]] = [order[target], order[index]];
+      }
+      if (order.every((id, index) => byId.get(id).text === pieces[index].text)) [order[0], order[1]] = [order[1], order[0]];
+      attempts = 0;
+      checkedPrefix = -1;
+      revealed = false;
+      draggedId = null;
+      dropPlacement = null;
+      setFeedback('Twoja kolej.', 'Ułóż linie od biblioteki do ostatniej klamry. Sprawdź znak operacji przed wczytaniem liczb.');
+      render();
+    }
+    list.addEventListener('click', event => {
+      const button = event.target.closest('button[data-direction]');
+      if (button) move(button.closest('[data-id]').dataset.id, button.dataset.direction);
+    });
+    list.addEventListener('keydown', event => {
+      if (event.altKey && (event.key === 'ArrowUp' || event.key === 'ArrowDown')) {
+        const row = event.target.closest('[data-id]');
+        if (!row) return;
+        event.preventDefault();
+        move(row.dataset.id, event.key === 'ArrowUp' ? 'up' : 'down');
+      }
+    });
+    function clearDrop() {
+      list.querySelectorAll('.drop-before,.drop-after').forEach(row => row.classList.remove('drop-before','drop-after'));
+      dropPlacement = null;
+    }
+    list.addEventListener('dragstart', event => {
+      const row = event.target.closest('[data-id]');
+      if (!row || event.target.closest('button')) {event.preventDefault(); return;}
+      draggedId = row.dataset.id;
+      event.dataTransfer.setData('text/plain', draggedId);
+      event.dataTransfer.effectAllowed = 'move';
+      row.classList.add('dragging');
+    });
+    list.addEventListener('dragover', event => {
+      const row = event.target.closest('[data-id]');
+      if (!row || draggedId === null) return;
+      event.preventDefault();
+      event.dataTransfer.dropEffect = 'move';
+      clearDrop();
+      const bounds = row.getBoundingClientRect();
+      const after = event.clientY > bounds.top + bounds.height / 2;
+      dropPlacement = {id:row.dataset.id, after};
+      row.classList.add(after ? 'drop-after' : 'drop-before');
+    });
+    list.addEventListener('drop', event => {
+      event.preventDefault();
+      if (draggedId !== null && dropPlacement && dropPlacement.id !== draggedId) {
+        const movingId = draggedId;
+        const remaining = order.filter(id => id !== movingId);
+        const target = remaining.indexOf(dropPlacement.id) + (dropPlacement.after ? 1 : 0);
+        remaining.splice(target, 0, movingId);
+        order = remaining;
+        invalidate();
+        render(movingId, 'up');
+        document.getElementById('movement').textContent = 'Przeniesiono linię na pozycję ' + (target + 1) + '.';
+      }
+      draggedId = null;
+      clearDrop();
+      list.querySelectorAll('.dragging').forEach(row => row.classList.remove('dragging'));
+    });
+    list.addEventListener('dragend', () => {draggedId = null; clearDrop(); list.querySelectorAll('.dragging').forEach(row => row.classList.remove('dragging'));});
+    document.getElementById('check').addEventListener('click', evaluate);
+    document.getElementById('reset').addEventListener('click', reset);
+    document.getElementById('solution').addEventListener('click', () => {dialog.returnValue = ''; dialog.showModal();});
+    dialog.addEventListener('close', () => {
+      if (dialog.returnValue !== 'reveal') return;
+      order = pieces.map(piece => piece.id);
+      checkedPrefix = order.length;
+      revealed = true;
+      setFeedback('Rozwiązanie zostało odkryte.', 'Prześledź warunek z && oraz return 0 przed wczytaniem liczb. Aby spróbować samodzielnie, wybierz „Pomieszaj od nowa”.', 'success');
+      render();
+    });
+    const examples = {
+      plus: {input:'+\n12.2 4.44', output:'Wykonuje dodawanie, suma to: 16.64'},
+      minus: {input:'-\n3.14 2.03', output:'Wykonuje odejmowanie, roznica to: 1.11'},
+      invalid: {input:'*\n(bez podawania liczb)', output:'Niedozwolona operacja: *'}
+    };
+    function selectExample(button) {
+      document.querySelectorAll('[data-example]').forEach(tab => {
+        const selected = tab === button;
+        tab.setAttribute('aria-selected', String(selected));
+        tab.tabIndex = selected ? 0 : -1;
+      });
+      document.getElementById('example').setAttribute('aria-labelledby', button.id);
+      const example = examples[button.dataset.example];
+      document.getElementById('example-input').textContent = example.input;
+      document.getElementById('example-output').textContent = example.output;
+    }
+    document.querySelectorAll('[data-example]').forEach(button => {
+      button.addEventListener('click', () => selectExample(button));
+      button.addEventListener('keydown', event => {
+        const tabs = [...document.querySelectorAll('[data-example]')];
+        const position = tabs.indexOf(button);
+        let target;
+        if (event.key === 'ArrowRight') target = (position + 1) % tabs.length;
+        if (event.key === 'ArrowLeft') target = (position + tabs.length - 1) % tabs.length;
+        if (event.key === 'Home') target = 0;
+        if (event.key === 'End') target = tabs.length - 1;
+        if (target === undefined) return;
+        event.preventDefault();
+        selectExample(tabs[target]);
+        tabs[target].focus();
+      });
+    });
+    selectExample(document.getElementById('tab-plus'));
+    reset();
+  </script>
+</body>
+</html>
