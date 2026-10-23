@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>JP_1_A_v2 · Rodziny typów C++</title>
+  <link rel="stylesheet" href="styl.css">
+</head>
+<body>
+  <header><div class="brand"><span class="logo">{ }</span> Pracownia C++</div><span id="badge" class="badge"></span></header>
+  <main>
+    <a id="back" class="back" href="../index.html#01_podstawy">← Wróć do listy ćwiczeń</a>
+    <div id="eyebrow" class="eyebrow"></div>
+    <h1><span id="heading"></span><br><em id="accent"></em></h1>
+    <p id="description" class="intro"></p>
+    <noscript>Włącz JavaScript, aby uruchomić ćwiczenie.</noscript>
+    <div class="toolbar">
+      <div class="modes" role="group" aria-label="Sposób sprawdzania">
+        <button id="help" aria-pressed="true">✦ Z pomocą</button>
+        <button id="solo" aria-pressed="false">Samodzielnie</button>
+      </div>
+      <button id="reset" class="button">↻ Zacznij od nowa</button>
+    </div>
+    <p id="modeNote" class="mode-note"></p>
+    <section class="bank-panel" aria-labelledby="bank-title">
+      <div class="panel-heading"><div><div class="eyebrow">01 / WYBIERZ TYP</div><h2 id="bank-title">Do przyporządkowania</h2></div><span id="remaining" class="badge"></span></div>
+      <p class="help">Przeciągnij klocek albo wybierz go kliknięciem i użyj „Umieść tutaj”. Na klawiaturze: Tab i Enter. Esc anuluje wybór.</p>
+      <div id="bank" class="chips" data-type-bank></div>
+    </section>
+    <section class="bank-panel literal-bank-panel" aria-labelledby="literal-bank-title">
+      <div class="panel-heading"><div><div class="eyebrow">02 / WYBIERZ LITERAŁ</div><h2 id="literal-bank-title">Bank literałów</h2></div><span id="literal-remaining" class="badge"></span></div>
+      <p class="help">Przenieś literał do pola w klocku typu (również gdy typ jest jeszcze w banku). W każdym typie zmieści się jeden literał. Przenoszenie typu zachowuje jego literał.</p>
+      <div id="literal-bank" class="chips" data-literal-bank></div>
+    </section>
+    <section aria-labelledby="families-title">
+      <div class="section-heading"><div><div class="eyebrow">03 / DOPASUJ DO RODZINY</div><h2 id="families-title">Trzy rodziny, wspólny język</h2></div><span id="progress"></span></div>
+      <div id="groups" class="groups"></div>
+    </section>
+    <div class="result-bar">
+      <button id="check" class="button primary">Sprawdź dopasowanie →</button>
+      <span id="attempts"></span>
+      <div id="feedback" class="feedback" role="status" aria-live="polite">Wczytywanie zadania…</div>
+    </div>
+    <section id="success" class="success" hidden><h2>Wszystkie typy i literały dopasowane.</h2><p>Przejrzyj poniższe objaśnienia. Zwróć uwagę na szczególny przypadek bool i na różnicę między char a signed char.</p></section>
+    <details class="notes"><summary>Jak rozumieć ten podział?</summary><div id="notes"></div><a id="source" target="_blank" rel="noopener"></a></details>
+    <footer><span>Bez ocen i zapisywania wyników · możesz próbować wielokrotnie</span><span>Kolejność w kategorii nie ma znaczenia; każdy typ ma jeden literał.</span></footer>
+  </main>
+  <script src="zadanie.js"></script>
+  <script src="reguly.js"></script>
+  <script src="silnik.js"></script>
+</body>
+</html>
