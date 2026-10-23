@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#173e38">
+  <title>JP_4_1 · Zagnieżdżone klocki</title>
+  <link rel="stylesheet" href="styl.css">
+  <script defer src="zadanie.js"></script><script defer src="reguly.js"></script><script defer src="silnik.js"></script>
+</head>
+<body>
+  <header class="topbar"><a id="back" href="../index.html#03_petle">← Wróć do listy ćwiczeń</a><span class="brand">{ } &nbsp; Pracownia C++ <b id="task-id"></b></span></header>
+  <main>
+    <section class="hero">
+      <div><p class="eyebrow" id="eyebrow"></p><h1><span id="title"></span><br><span class="accent" id="subtitle"></span></h1><p id="description"></p></div>
+      <aside class="example"><span>OCZEKIWANY EFEKT · PRZYKŁAD</span><pre id="example"></pre></aside>
+    </section>
+    <details class="brief"><summary>Założenia i wskazówki do zadania</summary><p id="instruction"></p><p id="notes"></p></details>
+    <div class="toolbar"><div><strong>Instrukcje do wnętrza. Warunki do pól.</strong><p>Chwyć nagłówek klocka (operator I/LUB — za środkowy pasek). Nawias wskazuje miejsce wstawienia. Możesz też wybrać klocek i kliknąć znacznik. Esc anuluje wybór.</p></div><div class="actions"><button id="reset">Zacznij od nowa</button><button id="check" class="primary">Sprawdź układ →</button></div></div>
+    <div id="feedback" class="feedback" role="status" aria-live="polite">Zacznij od instrukcji. Potem rozwiń pętle i zbuduj warunki.</div>
+    <div class="workspace">
+      <section class="panel bank-panel" aria-labelledby="bank-title"><div class="panel-head"><p class="eyebrow">01 / WYBIERZ</p><h2 id="bank-title">Bank klocków</h2><p>Każdy klocek wykorzystaj raz.</p></div><div class="tabs" role="group" aria-label="Rodzaj klocków"><button data-tab="statement" aria-pressed="true">Instrukcje</button><button data-tab="expression" aria-pressed="false">Warunki</button></div><div id="bank-return"></div><div id="bank"></div></section>
+      <section class="panel board-panel" aria-labelledby="board-title"><div class="panel-head"><p class="eyebrow">02 / UŁÓŻ ALGORYTM</p><div class="heading-row"><h2 id="board-title">Jedno działanie w drugim</h2><span id="progress" class="badge"></span></div><p>Pola owalne przyjmują warunki. Wnętrza bloków — instrukcje.</p></div><div id="board"></div></section>
+      <section class="panel program-panel" aria-labelledby="program-title"><div class="panel-head"><p class="eyebrow">03 / PROGRAM</p><h2 id="program-title">Twój układ w C++</h2><p>Kod zmienia się po każdym przeniesieniu.</p></div><div id="code" class="code" aria-label="Podgląd kodu C++"></div><p class="code-note">Puste warunki oznaczają niekompletny kod. Sprawdź układ przed kompilacją.</p><details class="copy-panel"><summary>Kod do skopiowania</summary><label class="sr-only" for="source">Kod C++ bez numerów linii</label><textarea id="source" readonly spellcheck="false"></textarea><button id="copy">Kopiuj kod</button><span id="copy-status" role="status"></span></details></section>
+    </div>
+    <footer><span>Myśl w krokach. Zwracaj uwagę na to, co jest wewnątrz czego.</span><button id="show">Pokaż przykładowe rozwiązanie</button></footer>
+  </main>
+  <dialog id="confirm"><h2 id="confirm-title"></h2><p id="confirm-text"></p><div class="actions"><button id="cancel">Anuluj</button><button id="accept" class="primary">Kontynuuj</button></div></dialog>
+  <noscript>Do działania układanki włącz JavaScript w przeglądarce.</noscript>
+</body>
+</html>
