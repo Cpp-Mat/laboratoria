@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#173e38"><meta name="description" content="Dwa indeksy w jednej tablicy. Krokowa wizualizacja usuwania wybranej wartości w C++.">
+  <title>JP_7_6 · Dwa indeksy w tablicy</title>
+  <link rel="stylesheet" href="../wspolne/css/baza.css">
+  <link rel="stylesheet" href="../wspolne/css/wizualizacja.css">
+  <link rel="stylesheet" href="styl.css">
+  <script defer src="zadanie.js"></script>
+  <script defer src="../wspolne/silniki/kompaktowanie-tablicy/reguly.js"></script>
+  <script defer src="../wspolne/silniki/odtwarzacz/sterowanie.js"></script>
+  <script defer src="../wspolne/silniki/odtwarzacz/kod.js"></script>
+  <script defer src="../wspolne/silniki/kompaktowanie-tablicy/silnik.js"></script>
+</head>
+<body>
+  <header class="topbar"><a id="back" href="../index.html#04_tablice">← Wróć do listy ćwiczeń</a><span class="brand">{ } &nbsp; Pracownia C++ <b id="task-id">JP_7_6</b></span></header>
+  <main>
+    <section class="hero"><div><p class="eyebrow" id="eyebrow"></p><h1 id="title"></h1><p class="intro" id="description"></p></div><aside class="key-idea"><span class="eyebrow">JEDNA TABLICA · DWA ZADANIA</span><p><b class="read-text">idx</b> odwiedza każdą komórkę.<br><b class="write-text">len</b> rośnie tylko po zachowaniu wartości.</p></aside></section>
+    <section class="setup panel" aria-labelledby="setup-title"><div class="setup-heading"><h2 id="setup-title">01 / Wybierz własne dane</h2><span id="input-count" class="subtle"></span></div>
+      <form id="data-form" novalidate><div class="field values-field"><label for="values">Zawartość tablicy</label><textarea id="values" rows="2" spellcheck="false" aria-describedby="input-help input-error"></textarea></div><div class="field"><label for="remove-value">Wartość do usunięcia</label><input id="remove-value" type="text" inputmode="numeric" spellcheck="false" aria-describedby="input-error"></div><button type="submit" class="primary" id="apply">Zastosuj dane →</button></form>
+      <p id="input-help" class="subtle">Oddziel liczby spacjami, przecinkami lub średnikami. Możesz zmieniać długość i kolejność tablicy.</p><p id="input-error" class="input-error" role="alert" hidden></p>
+      <div class="presets"><span class="subtle">Wypróbuj:</span><div id="examples" class="preset-buttons" role="group" aria-label="Przykładowe dane"></div></div>
+    </section>
+    <section class="workshop" aria-label="Wizualizacja algorytmu">
+      <div class="visual-column">
+        <section class="panel animation" aria-labelledby="array-title"><div class="panel-heading"><div><p class="eyebrow">02 / OBSERWUJ TABLICĘ</p><h2 id="array-title">Skąd czytam? Gdzie zapisuję?</h2></div><span id="iteration" class="pill"></span></div>
+          <div class="variables" aria-label="Aktualne wartości zmiennych"><div class="variable read-var"><span>idx <small>następny / bieżący odczyt</small></span><strong id="idx">0</strong></div><div class="variable write-var"><span>len <small>następny zapis / długość wyniku</small></span><strong id="len">0</strong></div><div class="variable"><span>nval <small>podanych komórek</small></span><strong id="nval">0</strong></div><div class="variable"><span>xval <small>usuwana wartość</small></span><strong id="xval">0</strong></div></div>
+          <div class="legend"><span class="read-text">↓ idx — stąd czytam</span><span class="write-text">↑ len — tutaj zapiszę</span><span class="result-text">■ gotowy fragment [0, len)</span></div>
+          <div id="array-scroll" class="array-scroll" tabindex="0" role="region" aria-label="Tablica z indeksami; dłuższy układ można przewijać w poziomie"><div id="array-track" class="array-track"></div></div>
+          <p id="region-note" class="region-note"></p>
+          <div class="narration" role="status" aria-live="polite" aria-atomic="true"><span id="phase" class="phase"></span><p id="message"></p></div>
+          <div class="controls"><div class="step-buttons"><button id="back-step">← Cofnij</button><button id="next" class="primary">Dalej — iteracja →</button><button id="instruction">Krok instrukcji</button></div><div class="play-buttons"><button id="play">▶ Odtwarzaj</button><button id="restart">Od początku</button><label for="speed" class="subtle">Tempo</label><select id="speed"></select></div></div>
+        </section>
+        <section class="panel result-panel" aria-labelledby="result-title"><div class="result-heading"><h2 id="result-title">Gotowy fragment wyniku</h2><span id="result-count" class="subtle"></span></div><output id="result-values" class="result-values"></output><p id="result-note" class="subtle"></p><details class="original"><summary>Dane początkowe — do porównania</summary><p id="original-values"></p></details></section>
+      </div>
+      <aside class="panel code-panel" aria-labelledby="code-title"><div class="panel-heading"><div><p class="eyebrow">03 / ŚLEDŹ INSTRUKCJĘ</p><h2 id="code-title">Fragment Twojego programu</h2></div></div><div id="code" class="code" aria-label="Kod pętli C++ z podświetloną wykonywaną instrukcją"></div><p class="code-help">Dane z formularza inicjalizują <code>tab</code>. Podświetlamy osobno inicjalizację, warunek i zwiększenie indeksu w <code>for</code>, a potem instrukcje ciała. Inicjalizacja jest wykonywana tylko raz.</p><div class="iteration-facts"><strong>Po co są dwa indeksy?</strong><p><code>idx</code> określa, ile danych odwiedziliśmy. <code>len</code> określa, ile wartości zachowaliśmy. Ich role są różne także wtedy, gdy mają tę samą wartość.</p></div><details class="notes"><summary>Co warto zauważyć?</summary><div id="notes"></div></details></aside>
+    </section>
+    <footer>Wizualizacja fragmentu programu JP_7_6 · zmieniamy zawartość i długość logiczną, nie pojemność tablicy.</footer>
+  </main>
+  <noscript>Włącz JavaScript, aby uruchomić wizualizację.</noscript>
+</body>
+</html>

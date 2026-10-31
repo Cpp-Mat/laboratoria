@@ -1,0 +1,28 @@
+/* JP_1_4: bank literałów oraz literał umieszczony wewnątrz typu. */
+.literal-bank-panel{margin-top:16px}
+.type-wrap{display:inline-flex;flex-direction:column;align-items:stretch;min-width:168px;max-width:100%;overflow:hidden}
+.type-header{display:flex;align-items:stretch;min-width:0}
+.type-chip{flex:1;min-width:0}
+.literal-drop{padding:5px 7px 7px;min-height:39px;border-top:1px dashed #cbd8ba;background:#f0f6e8}
+.literal-place{border:1px dashed #c4d5a8;border-radius:6px;background:#fcfdf9;color:#647659;font-size:11px;padding:5px 8px;width:100%;text-align:left}
+.literal-place:hover{background:#e3f0d4}
+.literal-wrap{display:inline-flex;align-items:stretch;max-width:100%;border:1px solid #c5c5e1;background:#f5f2ff;border-radius:7px;min-height:35px}
+.literal-chip{border:0;border-radius:7px;background:transparent;padding:7px 10px;text-align:left;touch-action:none;user-select:none;min-width:0}
+.literal-chip code{font:12px var(--font-code);overflow-wrap:anywhere}
+.literal-chip .grip{margin-right:7px;color:#9985b4}
+.literal-wrap:hover{border-color:#8f77b7}
+.literal-wrap.selected{outline:3px solid #a591cb}
+.literal-wrap.correct{border-color:#527a34;background:#e8f3d8}
+.literal-wrap.wrong{border-color:#b65a3e;background:#fff0e6}
+.literal-drop .literal-wrap{display:flex;width:100%}
+.literal-drop .literal-chip{flex:1}
+.literal-drop.over{outline:3px solid #87a958;background:#e0edc9}
+.literal-drop.over-invalid{outline:3px solid #bc7354;background:#fff1e8}
+.type-wrap.missing-literal .literal-drop{border-top-color:#b65a3e;background:#fff0e6}
+[data-type-bank].over,[data-literal-bank].over{outline:3px dashed #87a958;outline-offset:3px;background:#eff6df}
+#literal-bank{padding:5px 0}
+#literal-bank .literal-wrap{min-height:42px}
+#literal-bank .literal-chip{padding:10px 13px}
+.type-wrap.ghost{display:inline-flex;align-items:stretch;max-width:310px;opacity:.96}
+.literal-wrap.ghost{display:inline-flex;opacity:.96}
+@media(max-width:600px){.type-wrap{min-width:150px}.literal-bank-panel{margin-top:12px}}

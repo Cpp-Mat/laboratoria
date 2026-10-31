@@ -1,0 +1,11 @@
+/* Lokalne ustawienia przykładu. Wspólny układ: ../wspolne/css/wizualizacja.css. */
+:root {
+  --page-width: 1480px;
+  --font-size: 14px;
+  --array-cell-width: 62px;
+  /* Możliwe nadpisania:
+  --read-color: #246997;
+  --write-color: #9b591b;
+  --array-cell-width: 70px;
+  */
+}

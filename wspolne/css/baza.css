@@ -1,0 +1,39 @@
+/* WSPÓLNY MOTYW WSZYSTKICH STRON. Lokalne styl.css ładuje się na końcu. */
+:root {
+  color-scheme: light;
+  --paper: #f5f4ef;
+  --bg: var(--paper);
+  --surface: #ffffff;
+  --ink: #203934;
+  --muted: #60716a;
+  --green: #173e38;
+  --lime: #d5eb98;
+  --line: #dce2d8;
+  --accent: #65843e;
+  --focus: #ac6500;
+  --orange: #f6c17c;
+  --red: #a33727;
+  --purple: #72518d;
+  --gold: #996822;
+  --panel-radius: 16px;
+  --control-radius: 8px;
+  --font-body: system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-code: Consolas, "Courier New", monospace;
+  --font-size: 15px;
+  --body-leading: 1.6;
+  --page-width: 1280px;
+  --block-pad-y: 4px;
+  --insertion-gap: 8px;
+  --insertion-gap-touch: 16px;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: var(--font-size)/var(--body-leading) var(--font-body); }
+button, input, textarea, select { font: inherit; }
+button { cursor: pointer; touch-action: manipulation; }
+button:disabled { cursor: default; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+[hidden] { display: none !important; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}

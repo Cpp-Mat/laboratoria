@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#173e38"><meta name="description" content="Histogram krok po kroku: odczyt tab[idx], zmienna wartosc, kontrola zakresu i zwiększenie histogram[wartosc].">
+  <title>JP_7_9 · Budowanie histogramu</title>
+  <link rel="stylesheet" href="../wspolne/css/baza.css">
+  <link rel="stylesheet" href="../wspolne/css/wizualizacja.css">
+  <link rel="stylesheet" href="../wspolne/css/histogram.css">
+  <link rel="stylesheet" href="styl.css">
+  <script defer src="zadanie.js"></script>
+  <script defer src="../wspolne/silniki/histogram/reguly.js"></script>
+  <script defer src="../wspolne/silniki/odtwarzacz/sterowanie.js"></script>
+  <script defer src="../wspolne/silniki/odtwarzacz/kod.js"></script>
+  <script defer src="../wspolne/silniki/histogram/silnik.js"></script>
+</head>
+<body class="histogram-page">
+  <header class="topbar"><a id="back" href="../index.html#04_tablice">← Wróć do listy ćwiczeń</a><span class="brand">{ } &nbsp; Pracownia C++ <b id="task-id">JP_7_9</b></span></header>
+  <main>
+    <section class="hero"><div><p class="eyebrow" id="eyebrow"></p><h1 id="title"></h1><p class="intro" id="description"></p></div>
+    <aside class="key-idea"><span class="eyebrow">POZYCJA TO NIE WARTOŚĆ</span><p><b class="read-text">idx</b> wskazuje komórkę w <code>tab</code>.<br><b class="write-text">wartosc</b> z <code>tab[<b class="read-text">idx</b>]</code> wybiera licznik w <code>histogram</code>.</p></aside></section>
+    <section class="setup panel" aria-labelledby="setup-title"><div class="setup-heading"><h2 id="setup-title">01 / Wpisz dane do tablicy</h2><span id="input-count" class="subtle"></span></div><form id="data-form" novalidate><div class="field values-field"><label for="values">Zawartość tablicy tab</label><textarea id="values" rows="2" spellcheck="false" aria-describedby="input-help input-error"></textarea></div><button id="apply" type="submit" class="primary">Zastosuj dane →</button></form><p id="input-help" class="subtle"></p><p id="input-error" class="input-error" role="alert" hidden></p><div class="presets"><span class="subtle">Wypróbuj:</span><div id="examples" class="preset-buttons" role="group" aria-label="Przykładowe dane"></div></div></section>
+    <section class="workshop" aria-label="Zliczanie wystąpień w histogramie">
+      <div class="visual-column">
+        <section class="panel animation" aria-labelledby="array-title"><div class="panel-heading"><div><p class="eyebrow">02 / ZBUDUJ HISTOGRAM</p><h2 id="array-title">Odczytaj liczbę. Wybierz jej licznik.</h2></div><span id="iteration" class="pill"></span></div>
+          <div class="variables"><div class="variable read-var"><span>idx <small>pozycja w tab</small></span><strong id="idx">0</strong></div><div class="variable write-var"><span>wartosc <small>liczba odczytana z tab[idx]</small></span><strong id="wartosc">—</strong></div><div class="variable"><span>nval <small>liczba danych wejściowych</small></span><strong id="nval">0</strong></div></div>
+          <div class="array-label"><strong>tab</strong><span>liczby podane przez użytkownika — nie zmieniamy ich</span></div><div id="array-scroll" class="array-scroll" tabindex="0" role="region" aria-label="Tablica danych wejściowych, przewijana w poziomie"><div id="array-track" class="array-track"></div></div>
+          <div class="value-path" id="value-path"><span><code id="read-expression">tab[0]</code></span><span aria-hidden="true">→</span><span><code id="value-expression">wartosc = ?</code></span><span aria-hidden="true">→</span><span><code id="target-expression">najpierw odczytaj liczbę</code></span></div>
+          <div class="array-label"><strong>histogram</strong><span>indeks = wartość liczby · zawartość komórki = liczba wystąpień</span></div><div id="hist-scroll" class="array-scroll" tabindex="0" role="region" aria-label="Tablica liczników histogramu"><div id="histogram-track" class="histogram-track"></div></div>
+          <div class="hist-stats"><span>Uwzględniono: <strong id="accepted">0</strong></span><span>Pominięto: <strong id="ignored">0</strong></span><span>Suma liczników: <strong id="sum">0</strong></span></div>
+          <div id="output-variables" class="output-variables" hidden><span><code>liczba</code> — indeks w histogram: <strong id="liczba">—</strong></span><span><code>gwiazdka</code> — zmienna pętli wewnętrznej: <strong id="gwiazdka">—</strong></span></div>
+          <div class="narration" role="status" aria-live="polite" aria-atomic="true"><span id="phase" class="phase"></span><p id="message"></p></div>
+          <div class="controls"><div class="step-buttons"><button id="back-step">← Cofnij</button><button id="next" class="primary">Dalej — iteracja →</button><button id="instruction">Krok instrukcji</button></div><div class="play-buttons"><button id="play">▶ Odtwarzaj</button><button id="restart">Od początku</button><label for="speed" class="subtle">Tempo</label><select id="speed"></select></div></div>
+        </section>
+        <section class="panel result-panel" aria-labelledby="result-title"><div class="result-heading"><h2 id="result-title">Wynik: histogram z gwiazdek</h2></div><p class="result-explanation subtle">Liczbę gwiazdek w wierszu odczytujemy z <code>histogram[liczba]</code>. Jedna <code>*</code> oznacza jedno wystąpienie.</p><div id="chart" class="hist-chart" role="table" aria-label="Histogram wystąpień wartości"></div><p id="result-note" class="subtle"></p></section>
+      </div>
+      <aside class="panel code-panel" aria-labelledby="code-title"><div class="panel-heading"><div><p class="eyebrow">03 / ŚLEDŹ INSTRUKCJĘ</p><h2 id="code-title">Dane → wartość → indeks</h2></div></div><div id="code" class="code" aria-label="Podświetlany fragment programu C++"></div><p class="code-help">Przy <code>histogram[wartosc]++</code> pokazujemy dwa etapy jednej instrukcji: wybór komórki oraz zwiększenie licznika. Dane z formularza inicjalizują <code>tab</code>. W <code>for</code> podświetlamy osobno inicjalizację (tylko raz), warunek oraz zwiększenie indeksu. Następne dwie pętle wypisują wynik: jedną gwiazdkę przy każdym <code>cout &lt;&lt; '*'</code>.</p><div class="iteration-facts"><strong>Dlaczego histogram[wartosc]?</strong><p>Jeżeli <code>tab[0] = 2</code>, to <code>wartosc = 2</code>. Zwiększamy licznik dwójek <code>histogram[2]</code>. Indeks wejściowy <code>idx = 0</code> nie wybiera licznika.</p></div><details class="notes"><summary>Założenia i objaśnienia</summary><div id="notes"></div></details></aside>
+    </section>
+    <footer>JP_7_9 · Zliczamy wartości 0–9. Liczby spoza zakresu pozostają w tab, ale nie zmieniają histogramu.</footer>
+  </main><noscript>Włącz JavaScript, aby uruchomić wizualizację.</noscript>
+</body>
+</html>

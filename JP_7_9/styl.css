@@ -1,0 +1,7 @@
+/* Ustawienia lokalne. Motyw i układ odtwarzacza są wspólne z JP_7_6. */
+:root {
+  --page-width: 1560px;
+  --font-size: 14px;
+  --array-cell-width: 58px;
+  --hist-cell-width: 52px;
+}
