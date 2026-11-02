@@ -4,7 +4,7 @@ window.NESTED_TASK = {
   id: 'JP_4_1',
   eyebrow: 'PĘTLE / MODUŁ 4 · ZAGNIEŻDŻENIA I WARUNKI',
   title: 'Zbuduj prostokąt.',
-  subtitle: 'Od myśli do zagnieżdżeń.',
+  subtitle: 'Pętla w pętli.',
   description: 'Pobierz całkowitą szerokość i wysokość. Jeśli oba wymiary są dodatnie, narysuj pusty w środku prostokąt ze znaków * i spacji. W przeciwnym razie wyświetl komunikat o błędzie.',
   instruction: 'Rysuj wiersz po wierszu: zewnętrzna pętla przechodzi po wierszach y, wewnętrzna po kolumnach x. Zbuduj warunek brzegu z czterech porównań połączonych przez LUB. Zakładamy, że użytkownik wpisuje dwie liczby mieszczące się w typie int.',
   backLink: '../index.html#03_petle',
