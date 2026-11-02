@@ -76,5 +76,8 @@
   task.notes.forEach(note=>$('notes').append(el('p','',note)));task.examples.forEach(example=>{const n=el('button','preset',example.label);n.type='button';n.addEventListener('click',()=>{$('values').value=example.values.join(', ');load();});$('examples').append(n);});
   $('data-form').addEventListener('submit',e=>{e.preventDefault();load();});$('values').addEventListener('input',()=>{stop();dirty=true;$('values').removeAttribute('aria-invalid');$('input-error').hidden=true;document.querySelector('.workshop').classList.add('is-dirty');$('phase').textContent='NOWE DANE';$('message').textContent='Zastosuj nowe dane, aby rozpocząć z nimi od początku. Obecny rysunek dotyczy poprzednich danych.';count();controls();});
   $('next').addEventListener('click',()=>player.nextIteration());$('instruction').addEventListener('click',()=>player.nextInstruction());$('play').addEventListener('click',()=>player.togglePlayback());$('back-step').addEventListener('click',()=>{removeFlight();player.back();});$('restart').addEventListener('click',()=>{removeFlight();player.restart();});
+  window.AuthorShortcuts.bind(()=>{
+    stop();if(dirty)load();if(!dirty){removeFlight();player.finish();}
+  });
   document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});load();
 })();

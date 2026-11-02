@@ -69,7 +69,21 @@
           literalsResult.missingTypes.length===0 && literalsResult.unplaced.length===0
       };
     }
-    return {slots,items,literals,accepts,acceptsLiteral,evaluate};
+    function solution(){
+      // Dopasowanie jeden do jednego; pierwsza akceptowana opcja nie zawsze wystarcza.
+      const byType=new Map();
+      function assign(literalId,seen){
+        for(const typeId of literals.get(literalId).accepts){
+          if(seen.has(typeId))continue;seen.add(typeId);
+          const previous=byType.get(typeId);
+          if(previous===undefined||assign(previous,seen)){byType.set(typeId,literalId);return true;}
+        }
+        return false;
+      }
+      for(const id of literals.keys())if(!assign(id,new Set()))fail('Nie można przypisać każdemu typowi osobnego literału.');
+      return {placements:new Map([...items].map(([id,item])=>[id,item.accepts[0]])),literalOwners:new Map([...byType].map(([typeId,literalId])=>[literalId,typeId]))};
+    }
+    return {slots,items,literals,accepts,acceptsLiteral,evaluate,solution};
   }
   root.MatchingRules={create};
   if(typeof module!=='undefined'&&module.exports)module.exports={create};

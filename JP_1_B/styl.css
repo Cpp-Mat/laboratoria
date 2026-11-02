@@ -1,0 +1,25 @@
+/* LOKALNE USTAWIENIA ĆWICZENIA — ten plik ładuje się po stylach wspólnych.
+   Kolory i czcionki wszystkich stron: ../wspolne/css/baza.css.
+   Układ mechanizmu: ../wspolne/css/dopasowywanie.css, ../wspolne/css/dopasowywanie-literalow.css.
+   Możesz dopisywać zwykłe selektory CSS poniżej :root. */
+:root {
+  --page-width: 1288px;
+  --font-size: 15px;
+  --body-leading: 1.6;
+  /* Przykłady lokalnych zmian (usuń komentarz, aby je włączyć):
+  --green: #234d70;
+  --accent: #497eaa;
+  --panel-radius: 12px;
+  --font-size: 16px;
+  */
+}
+
+/* Lokalne odstępstwa wariantu z literałami od wspólnego zwartego układu. */
+.literal-bank-panel{margin-top:12px}
+.type-wrap{min-width:156px}
+.literal-drop{padding:4px 6px 5px;min-height:33px}
+.literal-place{padding:4px 7px}
+#literal-bank{padding:0}
+#literal-bank .literal-wrap{min-height:34px}
+#literal-bank .literal-chip{padding:7px 10px}
+@media(max-width:600px){.type-wrap{min-width:140px}.literal-bank-panel{margin-top:10px}}

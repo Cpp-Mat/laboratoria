@@ -22,11 +22,12 @@
   const blocks = task.blocks;
   let order = blocks.map(() => null);
   let bankOrder = blocks.map(b => b.id);
-  let selected = null, mode = task.defaultMode;
+  let selected = null, mode = task.defaultMode, verified = false, attempts = 0;
   let drag = null, suppressClick = false, lastCode = "";
   const codeNodes = new Map();
 
-  document.title = task.id + " · Pracownia C++";
+  document.title = task.id + " · Klocki algorytmu";
+  const badge = $("taskBadge"); if (badge) badge.textContent = task.id;
   $("taskEyebrow").textContent = task.eyebrow;
   $("taskHeading").textContent = task.heading;
   $("taskAccent").textContent = task.accent;
@@ -35,11 +36,15 @@
   $("programBefore").textContent = task.program.before.join("\n");
   $("programAfter").textContent = task.program.after.join("\n");
 
-  function status(text, type = "") {
+  function status(text, type = "", nearPlan = false) {
+    const top = $("placement-feedback"), inline = !!top && nearPlan;
+    if (top) { top.hidden = !inline; top.textContent = inline ? text : ""; top.className = "placement-feedback " + type; }
+    $("status").hidden = inline;
     $("status").textContent = text;
     $("status").className = "status " + type;
   }
   function invalidate() {
+    verified = false;
     status("Plan zmieniony. Sprawdź zależności między krokami.");
   }
 
@@ -70,11 +75,13 @@
   }
 
   function render() {
+    const mark = $("check-success"); if (mark) mark.hidden = !verified;
+    const counter = $("attempts"); if (counter) counter.textContent = "Sprawdzenia: " + attempts;
     document.querySelectorAll(".ghost").forEach(g => g.remove());
     $("bank").replaceChildren();
     bankOrder.filter(id => !order.includes(id)).forEach(id => $("bank").append(card(id)));
     if (order.every(Boolean))
-      $("bank").textContent = "Wszystkie klocki są w planie. Możesz sprawdzić rozwiązanie.";
+      $("bank").textContent = "Wszystkie klocki są w planie.";
     $("slots").replaceChildren();
     order.forEach((id, i) => {
       const slot = document.createElement("div");
@@ -108,7 +115,7 @@
         placeholder.textContent = "Krok " + (i + 1) + " · upuść klocek";
         placeholder.onclick = () => {
           if (selected) place(selected, i);
-          else status("Najpierw wybierz klocek po lewej.");
+          else status("Najpierw wybierz klocek po lewej.", "", true);
         };
         slot.append(placeholder);
       }
@@ -132,7 +139,7 @@
     const error = mode === "magnet" ? rules.issue(next) : "";
     if (error) {
       renderCode(order);
-      status(error, "error");
+      status(error, "error", true);
       const element = document.querySelector('[data-id="' + id + '"]');
       if (element) {
         element.classList.remove("reject");
@@ -143,11 +150,12 @@
     }
     order = next;
     selected = null;
+    verified = mode === "magnet" && order.every(Boolean) && !rules.issue(order, true);
     render();
     document.querySelector('[data-slot="' + index + '"]').classList.add("snap");
-    status(order.every(Boolean)
-      ? "Plan jest pełny. Kod po prawej odpowiada Twojej kolejności."
-      : "Połączono. Dodaj kolejne działanie.");
+    status(verified ? task.successMessage : order.every(Boolean)
+      ? "Plan jest pełny. Kod po prawej odpowiada Twojej kolejności. Sprawdź plan."
+      : "Połączono. Dodaj kolejne działanie.", verified ? "success" : "");
   }
 
   // 3. Przeciąganie myszą i dotykiem; kliknięcia i klawiatura działają osobno.
@@ -204,7 +212,7 @@
 
   // 4. Kod na żywo i czysty kod do kompilatora.
   function renderCode(ids, highlight = null, preview = false) {
-    const key = JSON.stringify([ids, highlight, preview]);
+    const key = JSON.stringify([ids, highlight, preview, verified]);
     if (key === lastCode) return;
     lastCode = key;
     const parent = $("codeRows");
@@ -240,6 +248,7 @@
     }
     $("codeHint").textContent = preview
       ? "Podgląd miejsca docelowego — upuść klocek, aby zatwierdzić kolejność."
+      : verified ? "Plan jest poprawny. Kod poniżej można skopiować do kompilatora."
       : "Kod odzwierciedla Twój plan, również gdy zawiera błąd. Użyj „Sprawdź plan”, aby ocenić kolejność.";
   }
   function selectCode() { $("copyCode").focus(); $("copyCode").select(); }
@@ -260,15 +269,18 @@
 
   // 5. Sprawdzanie, zmiana trybu i reset.
   $("check").onclick = () => {
+    attempts++;
     const error = rules.issue(order, true);
+    verified = !error;
+    render();
     status(error || task.successMessage, error ? "error" : "success");
   };
   function updateMode() {
     for (const name of ["magnet", "free"])
       $(name).setAttribute("aria-pressed", String(name === mode));
     $("modeNote").textContent = mode === "magnet"
-      ? "Magnesy łączą poprawny początek algorytmu. Dokładaj kolejne kroki od góry. Zły krok odskoczy."
-      : "Możesz układać dowolnie i zamieniać klocki miejscami. Dopiero „Sprawdź plan” oceni zależności.";
+      ? "Z pomocą: układaj kolejne kroki od góry. Błędne umieszczenie jest odrzucane z wyjaśnieniem. Poprawny, pełny plan otrzyma potwierdzenie automatycznie."
+      : "Samodzielnie: możesz układać dowolnie i zamieniać klocki miejscami. Przycisk „Sprawdź plan” oceni kolejność i zależności.";
   }
   for (const name of ["magnet", "free"]) $(name).onclick = () => {
     clearDrag();
@@ -280,6 +292,7 @@
   $("reset").onclick = () => {
     clearDrag();
     order = blocks.map(() => null);
+    verified = false; attempts = 0;
     selected = null;
     bankOrder = blocks.map(b => b.id);
     for (let i = bankOrder.length - 1; i > 0; i--) {
@@ -289,6 +302,10 @@
     render();
     status(task.initialMessage);
   };
+  window.AuthorShortcuts.bind(() => {
+    clearDrag();order=rules.solution();selected=null;verified=false;
+    render();status("Ułożono poprawny plan. Możesz sprawdzić go przyciskiem „Sprawdź plan”.");
+  });
   updateMode();
   render();
   status(task.initialMessage);

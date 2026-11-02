@@ -36,8 +36,12 @@
       finally{if(token===epoch){busy=false;playing=false;signal();}}
     }
     function back(){if(!history.length)return false;stop();position=history.pop();emit(false);return true;}
+    function finish(){
+      stop();if(!trace.length||position===trace.length-1)return false;
+      history.push(position);position=trace.length-1;emit(false);return true;
+    }
     function restart(){stop();position=0;history=[];emit(false);}
-    return {state,status,stop,setTrace,nextInstruction,nextIteration:()=>run(false),togglePlayback:()=>run(true),back,restart};
+    return {state,status,stop,setTrace,finish,nextInstruction,nextIteration:()=>run(false),togglePlayback:()=>run(true),back,restart};
   }
   const api={create};if(typeof module==='object'&&module.exports)module.exports=api;else root.TracePlayer=api;
 })(typeof window==='undefined'?globalThis:window);

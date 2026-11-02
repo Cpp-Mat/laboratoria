@@ -1,0 +1,29 @@
+/* WSPÓLNA OPRAWA ĆWICZEŃ: nagłówek, metadane, tytuł, tryby i potwierdzenie.
+   Ładuj po CSS mechanizmu, przed lokalnym styl.css. */
+header{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);background:white;padding:17px max(24px,calc((100vw - 1240px)/2))}
+.brand{display:flex;gap:12px;align-items:center;font-weight:750}
+.logo{background:var(--green);color:var(--lime);border-radius:10px;padding:4px 10px;font:23px/1.5 monospace}
+.badge{border:1px solid var(--line);border-radius:var(--panel-radius);padding:4px 12px;font-size:12px;color:var(--muted)}
+.back-link{margin-bottom:13px}
+h1{font-size:clamp(35px,4.5vw,54px);line-height:1.1}
+.toolbar{margin-bottom:0}
+.modes button{padding:9px 17px}
+.mode-note{font-size:12px;color:var(--muted)}
+.placement-feedback{background:#eaf0e1;border-radius:10px;font-size:13px}
+.placement-feedback.error{background:#fff0e1;color:#8b442e}
+main{padding-top:20px;padding-bottom:24px}
+.back{margin-bottom:13px}
+.task-meta{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.task-meta .badge{font-weight:700;color:var(--green);padding:2px 9px}
+h1{white-space:nowrap;margin:11px 0 12px}
+.intro{margin:0 0 16px;max-width:920px}
+.mode-note{margin:8px 0 13px}
+.placement-feedback{position:sticky;top:8px;z-index:20;margin:0 0 10px;padding:11px 14px;min-height:0;box-shadow:0 3px 12px #173e3812}
+.check-success{display:inline-flex;align-items:center;justify-content:center;color:#477623;font-size:48px;font-weight:800;line-height:1;width:52px;min-height:48px}
+@media(max-width:600px){header{padding:11px 15px}.brand{gap:8px;font-size:12px}.logo{font-size:18px}main{padding-top:16px}h1{white-space:normal;font-size:clamp(28px,6vw,35px)}.task-meta{gap:7px}.task-meta .eyebrow{font-size:10px}}
+
+/* Wspolne oznaczenia Zadanie / Wizualizacja na liscie i w metadanych cwiczen. */
+.activity-kind{display:inline-flex;align-items:center;gap:5px;white-space:nowrap;font:650 10px/1.5 var(--font-body);padding:2px 8px;border:1px solid #c9d9b5;border-radius:999px;background:#e8f1df;color:#47672d}
+.activity-kind.visualization{background:#eaf3fb;border-color:#bbd2e5;color:#246997}
+.activity-icon{display:block;width:16px;height:16px;flex:0 0 16px}
+.task-meta .activity-kind{font-size:11px;gap:6px}

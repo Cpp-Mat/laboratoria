@@ -96,6 +96,9 @@
     $('instruction').addEventListener('click',()=>player.nextInstruction());
     $('back-step').addEventListener('click',()=>{removeFlight();player.back();});
     $('restart').addEventListener('click',()=>{removeFlight();player.restart();});
+  window.AuthorShortcuts.bind(()=>{
+    stop();if(dirty)load();if(!dirty){removeFlight();player.finish();}
+  });
     document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});
     load();
   }catch(error){$('input-error').hidden=false;$('input-error').textContent='Nie można uruchomić przykładu: '+error.message;for(const id of ['next','instruction','play','restart','back-step'])$(id).disabled=true;}

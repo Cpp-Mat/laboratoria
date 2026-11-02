@@ -10,7 +10,7 @@ window.EXERCISE = {
   eyebrow: "ZMIENNE I TYPY / 01 · WEJŚCIE I WYJŚCIE",
   heading: "Zbuduj program.",
   accent: "Własnymi słowami.",
-  description: "Przygotuj zmienną na liczbę, poproś użytkownika o jej podanie, wczytaj ją i wypisz: „Wpisana liczba to:” wraz z wartością. Ułóż działania i obserwuj, jak powstaje odpowiadający im program w C++.",
+  description: "Przygotuj zmienną na liczbę, poproś użytkownika o jej podanie, wczytaj ją i wypisz: „Wpisana liczba to:” wraz z wartością. Ułóż działania i obserwuj, jak powstaje odpowiadający im program w C++. Przeciągnij klocek do planu albo wybierz go kliknięciem, a następnie kliknij miejsce w planie.",
   backLink: "../index.html#01_podstawy",
   initialMessage: "Zacznij od przygotowania zmiennej albo wyświetlenia prośby o liczbę.",
   successMessage: "Gotowe! Zmienna i prośba poprzedzają odczyt, a wynik pojawia się po wczytaniu.",

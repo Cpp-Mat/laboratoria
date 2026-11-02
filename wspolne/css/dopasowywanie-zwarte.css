@@ -1,0 +1,21 @@
+/* WSPÓLNY ZWARTY UKŁAD DOPASOWYWANIA: JP_1_A i JP_1_B.
+   Wartości i odstępstwa konkretnego zadania: jego lokalny styl.css. */
+.bank-panel{padding:16px 18px}
+.help{margin:7px 0 11px}
+.chips{gap:7px;min-height:36px}
+.chip{padding:7px 10px;min-height:34px}
+.section-heading{margin:18px 0 10px}
+.section-heading h2{font-size:11px;letter-spacing:.13em;margin:0}
+.family{padding:16px}
+.family-number{margin-bottom:8px}
+.family>p{min-height:0;margin-bottom:12px}
+.subslots{gap:10px}
+.slot{padding:10px;min-height:0}
+.slot>p{margin-bottom:7px}
+.slot>p:empty,.slot .chips:empty{display:none}
+.slot .chips{margin:7px 0;min-height:0}
+.slot .place{padding:6px 8px}
+.result-bar{margin-top:17px;gap:10px 14px}
+.success{margin-top:13px;padding:15px 18px}
+.notes{margin-top:17px;padding:15px 0}
+@media(max-width:600px){.bank-panel,.family{padding:13px}.groups{gap:11px}}

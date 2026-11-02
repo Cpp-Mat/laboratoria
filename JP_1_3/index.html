@@ -3,45 +3,43 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Klocki algorytmu · Pracownia C++</title>
+<title>JP_1_3 · Wejście i wyjście</title>
   <link rel="stylesheet" href="../wspolne/css/baza.css">
   <link rel="stylesheet" href="../wspolne/css/klocki-liniowe.css">
+  <link rel="stylesheet" href="../wspolne/css/pracownia.css">
   <link rel="stylesheet" href="styl.css">
 </head>
 <body>
 <header>
 <div class="brand">
-<span class="logo">{ }</span> Pracownia C++</div>
-<span class="tag">Najpierw pomysł. Potem kod.</span>
+<span class="logo">{ }</span> Języki programowania [1500-DII25JP]</div>
 </header>
 <main>
 <a id="backLink" class="back-link" href="../index.html#01_podstawy">← Wróć do listy ćwiczeń</a>
-<div class="eyebrow" id="taskEyebrow">
-</div>
+<div class="task-meta"><div class="eyebrow" id="taskEyebrow"></div><span id="taskBadge" class="badge"></span><span class="activity-kind task"><img class="activity-icon" src="../wspolne/ikony/zadanie.svg" alt="" aria-hidden="true" width="16" height="16"><span>Zadanie</span></span></div>
 <h1>
 <span id="taskHeading">
 </span>
-<br>
 <em id="taskAccent">
 </em>
 </h1>
 <p class="intro" id="taskDescription">
 </p>
 <div class="toolbar">
-<div class="modes" aria-label="Sposób sprawdzania">
-<button id="magnet" aria-pressed="true">✦ Magnesy · z pomocą</button>
-<button id="free" aria-pressed="false">Samodzielnie · bez podpowiedzi</button>
+<div class="modes" role="group" aria-label="Sposób sprawdzania">
+<button id="magnet" aria-pressed="true">✦ Z pomocą</button>
+<button id="free" aria-pressed="false">Samodzielnie</button>
 </div>
 <button class="btn" id="reset">↻ Zacznij od nowa</button>
 </div>
+<p class="mode-note" id="modeNote"></p>
+<p id="placement-feedback" class="placement-feedback" role="status" aria-live="polite" aria-atomic="true" hidden></p>
 <div class="workspace">
 <section class="panel">
 <div class="eyebrow">01 / WYBIERZ DZIAŁANIE</div>
 <h2>Twoje klocki</h2>
-<p class="help">Przeciągnij klocek do planu albo kliknij klocek, a potem wybrane miejsce.</p>
 <div class="bank" id="bank">
 </div>
-<div class="note" id="modeNote">Magnesy łączą poprawny początek algorytmu. Dokładaj kolejne kroki od góry. Zły krok odskoczy.</div>
 </section>
 <section class="panel">
 <div class="eyebrow">02 / UŁÓŻ ALGORYTM</div>
@@ -53,10 +51,12 @@
 <div id="slots">
 </div>
 <div class="flowcap end">■ KONIEC</div>
-<div id="status" class="status" role="status" aria-live="polite">Wczytywanie zadania…</div>
 <div class="actions">
-<button class="btn" id="check">Sprawdź plan</button>
+<button class="btn primary" id="check">Sprawdź plan</button>
+<span id="check-success" class="check-success" aria-hidden="true" hidden>✓</span>
+<span id="attempts" class="attempts">Sprawdzenia: 0</span>
 </div>
+<div id="status" class="status" role="status" aria-live="polite">Wczytywanie zadania…</div>
 </section>
 <section class="panel preview">
 <div class="eyebrow">03 / PROGRAM</div>
@@ -89,17 +89,14 @@
 </details>
 </section>
 </div>
-<footer>
-<span>Przeciągnij lub wybierz kliknięciem. Klawiatura: Tab i Enter.</span>
-<span>Bez ocen · bez logowania · możesz próbować wielokrotnie</span>
-</footer>
 </main>
 <!-- Dane najpierw, potem wspólny silnik. Bez modułów i fetch: działa offline. -->
 <script src="zadanie.js">
 </script>
 <script src="../wspolne/silniki/klocki-liniowe/reguly.js">
 </script>
-<script src="../wspolne/silniki/klocki-liniowe/silnik.js">
+<script src="../wspolne/silniki/narzedzia-autora/skroty.js"></script>
+  <script src="../wspolne/silniki/klocki-liniowe/silnik.js">
 </script>
 </body>
 </html>

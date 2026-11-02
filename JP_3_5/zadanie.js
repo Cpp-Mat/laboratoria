@@ -15,9 +15,7 @@ window.PARSONS_TASK = {
     "headingLead": "od ",
     "accent": "dobrej kolejności.",
     "intro": "Wszystkie potrzebne linie już tu są. Uporządkuj je tak, aby program poprawnie dodawał, odejmował i reagował na błędny znak operacji.",
-    "mark": "+ / −",
     "fileName": "main.cpp",
-    "footer": "JP_3_5 · Parsons puzzle · C++11 lub nowszy",
     "briefHeadingHtml": "Dwie operacje.<br>Jeden ważny warunek.",
     "requirementsHtml": [
       "Wczytaj znak operacji do zmiennej typu <span class=\"pill\">char</span>.",

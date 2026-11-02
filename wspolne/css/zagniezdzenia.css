@@ -43,3 +43,6 @@
 @media(max-width:1120px){.workspace{grid-template-columns:230px minmax(0,1fr)}.program-panel{grid-column:1/-1;position:static;max-height:none}.code{max-height:500px}.hero{grid-template-columns:1fr 280px;gap:25px}}
 @media(max-width:700px){main{padding:24px 12px}.topbar{padding:14px 12px}.brand{font-size:11px}.brand b{display:none}.hero{grid-template-columns:1fr;gap:20px}.example{padding:16px 20px}.toolbar{align-items:stretch;flex-direction:column;gap:12px}.actions button{flex:1}.workspace{grid-template-columns:1fr}.bank-panel{position:static;max-height:340px}.program-panel{grid-column:auto}.block-body{padding-left:6px;padding-right:6px}.slot{padding-left:5px}.panel-head{padding:14px}.feedback{top:0;font-size:12px}footer{align-items:start;flex-direction:column}.pick strong{font-size:11px}.tools button{padding:2px 4px}.heading-row{flex-wrap:wrap}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+
+/* Fragmenty mają własne powiązania z klockami i polami, nie zmieniają tekstu C++. */
+.code-fragment.active{background:#d9e9bc;color:#294b19;outline:1px solid #709449;border-radius:3px;box-shadow:0 0 0 2px #d9e9bc}

@@ -123,7 +123,16 @@
           .split("\n").map(line => config.program.indent + line));
       return [...config.program.before, ...body, ...config.program.after].join("\n") + "\n";
     }
-    return { issue, programText, byId };
+    function solution() {
+      const prefix=[];
+      while(prefix.length<blocks.length){
+        const next=blocks.find(block=>!prefix.includes(block.id)&&!reason(prefix,block.id)&&canFinish([...prefix,block.id]));
+        if(!next)fail("Nie można dokończyć rozwiązania.");
+        prefix.push(next.id);
+      }
+      return prefix;
+    }
+    return { issue, programText, byId, solution };
   }
 
   root.BlockRules = { create };

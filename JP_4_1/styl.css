@@ -14,3 +14,28 @@
   --insertion-gap: 6px;
   */
 }
+
+/* Oprawa wspólna: pracownia.css. Zagnieżdżanie i kompaktowe znaczniki bez zmian. */
+.back-link{display:inline-block;color:var(--muted);font-size:13px;text-underline-offset:4px}
+.hero{display:block;margin-bottom:14px}
+.task-meta .eyebrow{margin:0;font-size:11px;letter-spacing:.13em}
+.task-meta .badge{background:transparent}
+.task-summary{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:24px;align-items:start}
+.hero #description{max-width:920px;margin:0;color:var(--muted);font-size:15px}
+.example{padding:13px 18px}
+.example pre{margin-top:9px;font-size:12px}
+.brief{padding:7px 0 12px}
+.toolbar{align-items:flex-start;flex-wrap:wrap;gap:12px;margin:16px 0 12px}
+.toolbar>div:first-child{flex:1 1 480px}
+.toolbar p{line-height:1.65}
+.actions{align-items:center;flex-wrap:wrap;flex-shrink:1}
+.actions .attempts{color:var(--muted);font-size:11px;white-space:nowrap}
+.feedback{top:8px;margin-bottom:14px;padding:11px 14px}
+.panel-head{padding:14px 16px 11px}
+.bank-empty{padding:12px 4px}
+@media(max-width:700px){.task-summary{grid-template-columns:1fr;gap:14px}.toolbar>div:first-child{flex-basis:auto}.actions{flex-shrink:0}.actions .check-success{flex:0 0 52px}}
+/* Wskazówki stale widoczne pod opisem, obok oczekiwanego efektu. */
+.task-description{min-width:0}
+.task-description .brief{margin-top:12px;padding:0;border:0}
+.task-description .brief h2{font-size:13px;line-height:1.5;margin:0 0 5px;color:var(--green)}
+.task-description .brief p{font-size:12px;line-height:1.55;margin:6px 0 0;color:var(--muted);max-width:none}

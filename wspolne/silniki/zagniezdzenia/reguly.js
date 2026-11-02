@@ -117,22 +117,45 @@
       }
       return {ok:!errors.length,errors};
     }
+    // Drzewo fragmentów zachowuje tożsamość klocków i pól, także dla identycznych tekstów.
+    const joinParts=parts=>parts.map(part=>part.text).join('');
     function expression(s,id) {
-      if(!id) return '/* wstaw warunek */';
+      if(!id)return {text:'/* wstaw warunek */'};
       const b=defs[id];
-      return b.operator ? '('+expression(s,s.nodes[id].slots.a[0])+' '+b.operator+' '+expression(s,s.nodes[id].slots.b[0])+')' : b.code;
+      if(!b.operator)return {id,text:b.code};
+      const field=name=>{const child=expression(s,s.nodes[id].slots[name][0]);return {owner:id,slot:name,text:child.text,parts:[child]};};
+      const parts=[{text:'('},field('a'),{text:' '+b.operator+' '},field('b'),{text:')'}];
+      return {id,text:joinParts(parts),parts};
     }
     function generate(s) {
-      const rows=task.program.before.map(text=>({text,id:null})), indent=task.program.indent;
-      function render(ids,level) {
-        for(const id of ids) for(const line of defs[id].template) {
-          if(typeof line==='string') rows.push({id,text:indent.repeat(level)+line.replace(/\{\{(\w+)\}\}/g,(_,k)=>expression(s,s.nodes[id].slots[k][0]))});
-          else if(s.nodes[id].slots[line.slot].length) render(s.nodes[id].slots[line.slot],level+1);
-          else rows.push({id,text:indent.repeat(level+1)+'// puste wnętrze'});
+      const rows=task.program.before.map(text=>({text,id:null,parts:[{text}],scopes:[]})),indent=task.program.indent;
+      function statement(id,line,level,scopes){
+        const parts=[];let at=0;
+        for(const match of line.matchAll(/\{\{(\w+)\}\}/g)){
+          if(match.index>at)parts.push({text:line.slice(at,match.index)});
+          const child=expression(s,s.nodes[id].slots[match[1]][0]);
+          parts.push({owner:id,slot:match[1],text:child.text,parts:[child]});at=match.index+match[0].length;
+        }
+        if(at<line.length)parts.push({text:line.slice(at)});
+        const prefix=indent.repeat(level),body={id,text:joinParts(parts),parts};
+        rows.push({id,text:prefix+body.text,parts:[{text:prefix},body],scopes:scopes.slice()});
+      }
+      function render(ids,level,scopes=[]) {
+        for(const id of ids)for(const line of defs[id].template){
+          if(typeof line==='string')statement(id,line,level,scopes);
+          else{
+            const childScopes=[...scopes,{owner:id,slot:line.slot}],children=s.nodes[id].slots[line.slot];
+            if(children.length)render(children,level+1,childScopes);
+            else{
+              const prefix=indent.repeat(level+1),body={id,text:'// puste wnętrze'};
+              rows.push({id,text:prefix+body.text,parts:[{text:prefix},body],scopes:childScopes});
+            }
+          }
         }
       }
-      if(s.root.length) render(s.root,1); else rows.push({id:null,text:indent+'// tutaj pojawi się Twój program'});
-      rows.push(...task.program.after.map(text=>({text,id:null})));
+      if(s.root.length)render(s.root,1);
+      else rows.push({id:null,text:indent+'// tutaj pojawi się Twój program',parts:[{text:indent+'// tutaj pojawi się Twój program'}],scopes:[]});
+      rows.push(...task.program.after.map(text=>({text,id:null,parts:[{text}],scopes:[]})));
       return rows;
     }
     function solution() { return JSON.parse(JSON.stringify(expected)); }

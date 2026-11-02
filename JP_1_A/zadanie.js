@@ -7,6 +7,8 @@ window.MATCHING_TASK = {
   "description": "Dopasuj nazwy typów C++ do trzech rodzin. Wśród typów całkowitych rozróżnij typy ze znakiem i bez znaku. Każdy klocek wykorzystaj raz; kolejność w obrębie kategorii nie ma znaczenia.",
   "backLink": "../index.html#01_podstawy",
   "defaultMode": "help",
+  // Wygląd tej wersji zadania; pozostałe ćwiczenia zachowują własne ustawienia.
+  "presentation": { "slotPlaceholder": false },
   "groups": [
     {
       "id": "logical",

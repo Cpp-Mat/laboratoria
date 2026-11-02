@@ -7,19 +7,25 @@
   <link rel="stylesheet" href="../wspolne/css/baza.css">
   <link rel="stylesheet" href="../wspolne/css/wizualizacja.css">
   <link rel="stylesheet" href="../wspolne/css/histogram.css">
+  <link rel="stylesheet" href="../wspolne/css/pracownia.css">
   <link rel="stylesheet" href="styl.css">
   <script defer src="zadanie.js"></script>
   <script defer src="../wspolne/silniki/histogram/reguly.js"></script>
   <script defer src="../wspolne/silniki/odtwarzacz/sterowanie.js"></script>
   <script defer src="../wspolne/silniki/odtwarzacz/kod.js"></script>
+  <script src="../wspolne/silniki/narzedzia-autora/skroty.js"></script>
   <script defer src="../wspolne/silniki/histogram/silnik.js"></script>
 </head>
-<body class="histogram-page">
-  <header class="topbar"><a id="back" href="../index.html#04_tablice">← Wróć do listy ćwiczeń</a><span class="brand">{ } &nbsp; Pracownia C++ <b id="task-id">JP_7_9</b></span></header>
+<body class="histogram-page visualization-page">
+  <header><div class="brand"><span class="logo" aria-hidden="true">{ }</span> Języki programowania [1500-DII25JP]</div></header>
   <main>
-    <section class="hero"><div><p class="eyebrow" id="eyebrow"></p><h1 id="title"></h1><p class="intro" id="description"></p></div>
-    <aside class="key-idea"><span class="eyebrow">POZYCJA TO NIE WARTOŚĆ</span><p><b class="read-text">idx</b> wskazuje komórkę w <code>tab</code>.<br><b class="write-text">wartosc</b> z <code>tab[<b class="read-text">idx</b>]</code> wybiera licznik w <code>histogram</code>.</p></aside></section>
-    <section class="setup panel" aria-labelledby="setup-title"><div class="setup-heading"><h2 id="setup-title">01 / Wpisz dane do tablicy</h2><span id="input-count" class="subtle"></span></div><form id="data-form" novalidate><div class="field values-field"><label for="values">Zawartość tablicy tab</label><textarea id="values" rows="2" spellcheck="false" aria-describedby="input-help input-error"></textarea></div><button id="apply" type="submit" class="primary">Zastosuj dane →</button></form><p id="input-help" class="subtle"></p><p id="input-error" class="input-error" role="alert" hidden></p><div class="presets"><span class="subtle">Wypróbuj:</span><div id="examples" class="preset-buttons" role="group" aria-label="Przykładowe dane"></div></div></section>
+    <a id="back" class="back-link" href="../index.html#04_tablice">← Wróć do listy ćwiczeń</a>
+    <section class="hero">
+      <div class="task-meta"><p class="eyebrow" id="eyebrow"></p><span id="task-id" class="badge">JP_7_9</span><span class="activity-kind visualization"><img class="activity-icon" src="../wspolne/ikony/wizualizacja.svg" alt="" aria-hidden="true" width="16" height="16"><span>Wizualizacja</span></span></div>
+      <h1 id="title"></h1>
+      <div class="hero-summary"><p class="intro" id="description"></p><aside class="key-idea"><span class="eyebrow">POZYCJA TO NIE WARTOŚĆ</span><p><b class="read-text">idx</b> wskazuje komórkę w <code>tab</code>.<br><b class="write-text">wartosc</b> z <code>tab[<b class="read-text">idx</b>]</code> wybiera licznik w <code>histogram</code>.</p></aside></div>
+    </section>
+    <section class="setup panel" aria-labelledby="setup-title"><div class="setup-heading"><div><p class="eyebrow">01 / PRZYGOTUJ DANE</p><h2 id="setup-title">Wpisz dane do tablicy</h2></div><span id="input-count" class="subtle"></span></div><form id="data-form" novalidate><div class="field values-field"><label for="values">Zawartość tablicy tab</label><textarea id="values" rows="2" spellcheck="false" aria-describedby="input-help input-error"></textarea></div><button id="apply" type="submit" class="primary">Zastosuj dane →</button></form><p id="input-help" class="subtle"></p><p id="input-error" class="input-error" role="alert" hidden></p><div class="presets"><span class="subtle">Wypróbuj:</span><div id="examples" class="preset-buttons" role="group" aria-label="Przykładowe dane"></div></div></section>
     <section class="workshop" aria-label="Zliczanie wystąpień w histogramie">
       <div class="visual-column">
         <section class="panel animation" aria-labelledby="array-title"><div class="panel-heading"><div><p class="eyebrow">02 / ZBUDUJ HISTOGRAM</p><h2 id="array-title">Odczytaj liczbę. Wybierz jej licznik.</h2></div><span id="iteration" class="pill"></span></div>
@@ -36,7 +42,6 @@
       </div>
       <aside class="panel code-panel" aria-labelledby="code-title"><div class="panel-heading"><div><p class="eyebrow">03 / ŚLEDŹ INSTRUKCJĘ</p><h2 id="code-title">Dane → wartość → indeks</h2></div></div><div id="code" class="code" aria-label="Podświetlany fragment programu C++"></div><p class="code-help">Przy <code>histogram[wartosc]++</code> pokazujemy dwa etapy jednej instrukcji: wybór komórki oraz zwiększenie licznika. Dane z formularza inicjalizują <code>tab</code>. W <code>for</code> podświetlamy osobno inicjalizację (tylko raz), warunek oraz zwiększenie indeksu. Następne dwie pętle wypisują wynik: jedną gwiazdkę przy każdym <code>cout &lt;&lt; '*'</code>.</p><div class="iteration-facts"><strong>Dlaczego histogram[wartosc]?</strong><p>Jeżeli <code>tab[0] = 2</code>, to <code>wartosc = 2</code>. Zwiększamy licznik dwójek <code>histogram[2]</code>. Indeks wejściowy <code>idx = 0</code> nie wybiera licznika.</p></div><details class="notes"><summary>Założenia i objaśnienia</summary><div id="notes"></div></details></aside>
     </section>
-    <footer>JP_7_9 · Zliczamy wartości 0–9. Liczby spoza zakresu pozostają w tab, ale nie zmieniają histogramu.</footer>
   </main><noscript>Włącz JavaScript, aby uruchomić wizualizację.</noscript>
 </body>
 </html>

@@ -8,30 +8,21 @@
   <title>JP_3_5 · Ułóż program C++</title>
     <link rel="stylesheet" href="../wspolne/css/baza.css">
   <link rel="stylesheet" href="../wspolne/css/parsons.css">
+  <link rel="stylesheet" href="../wspolne/css/pracownia.css">
   <link rel="stylesheet" href="styl.css">
 </head>
 <body>
-  <header class="topbar">
-<div class="brand">
-<span class="logo" aria-hidden="true">{ }</span>
-<span>Pracownia C++ <span class="course">/ laboratorium · pierwszy rok</span>
-</span>
-</div>
-<span class="badge" id="task-id">
-</span>
-</header>
+  <header><div class="brand"><span class="logo" aria-hidden="true">{ }</span> Języki programowania [1500-DII25JP]</div></header>
   <main>
-    <nav aria-label="Powrót do katalogu" style="margin-bottom:22px;font-size:13px">
-<a id="back-link" href="../index.html#02_warunki">← Wróć do listy ćwiczeń</a>
+    <nav aria-label="Powrót do katalogu">
+<a id="back-link" class="back-link" href="../index.html#02_warunki">← Wróć do listy ćwiczeń</a>
 </nav>
     <section class="intro" aria-labelledby="title">
 <div>
-<div class="eyebrow" id="task-eyebrow">
-</div>
+<div class="task-meta"><div class="eyebrow" id="task-eyebrow"></div><span class="badge" id="task-id"></span><span class="activity-kind task"><img class="activity-icon" src="../wspolne/ikony/zadanie.svg" alt="" aria-hidden="true" width="16" height="16"><span>Zadanie</span></span></div>
 <h1 id="title">
 <span id="task-heading" class="heading-main">
 </span>
-<br>
 <span id="task-heading-lead" class="heading-main">
 </span>
 <span id="task-accent">
@@ -39,8 +30,6 @@
 </h1>
 <p id="task-intro">
 </p>
-</div>
-<div class="lesson-mark" id="task-mark" aria-hidden="true">
 </div>
 </section>
     <noscript>
@@ -51,7 +40,8 @@
         <div class="panel-head">
 <div>
 <h2 id="puzzle-title">Ułóż program</h2>
-<span class="subtle">Przeciągnij linie lub użyj przycisków ↑ ↓.</span>
+<p class="subtle puzzle-instructions">Przeciągaj linie za uchwyt ⠿ lub przesuwaj je przyciskami ↑ ↓. Następnie wybierz „Sprawdź kolejność”. Zielone linie oznaczają poprawny początek, a wskazówka pomoże poprawić pierwszy błąd.</p>
+<a id="instructions-link" class="instructions-link" href="#puzzle-help">Obsługa klawiaturą i więcej wskazówek →</a>
 </div>
 <span class="file">
 <span class="dot">
@@ -63,7 +53,6 @@
         <div class="toolbar">
 <span id="line-count">
 </span>
-<span id="attempts">Sprawdzenia: 0</span>
 </div>
         <div class="code-scroll">
 <ol class="lines" id="lines" aria-label="Linie programu w aktualnej kolejności" aria-describedby="keyboard-help">
@@ -76,6 +65,8 @@
         <div class="actions">
 <button class="btn primary" id="check" type="button">Sprawdź kolejność <span aria-hidden="true">↗</span>
 </button>
+<span id="check-success" class="check-success" aria-hidden="true" hidden>✓</span>
+<span id="attempts" class="attempts">Sprawdzenia: 0</span>
 <button class="btn" id="reset" type="button">↻ Pomieszaj od nowa</button>
 <button class="btn quiet" id="solution" type="button">Pokaż rozwiązanie</button>
 </div>
@@ -114,11 +105,11 @@
 <p class="example-note" id="example-note">
 </p>
 </section>
-        <details class="panel help" open>
+        <details id="puzzle-help" class="panel help" open>
 <summary>Jak pracować z układanką?</summary>
 <ol>
 <li>Przesuwaj linie za uchwyt ⠿ lub przyciskami ↑ ↓. Na telefonie używaj przycisków.</li>
-<li id="keyboard-help">Klawiatura: przejdź klawiszem <kbd>Tab</kbd> do przycisku linii, potem użyj <kbd>Alt</kbd> + <kbd>↑</kbd> / <kbd>↓</kbd>. Przyciski działają też przez <kbd>Enter</kbd> lub spację.</li>
+<li id="keyboard-help">Klawiatura: <kbd>Tab</kbd> przechodzi do następnego elementu, a <kbd>Shift</kbd> + <kbd>Tab</kbd> — do poprzedniego. Przejdź do przycisku linii, potem użyj <kbd>Alt</kbd> + <kbd>↑</kbd> / <kbd>↓</kbd>. Przyciski działają też przez <kbd>Enter</kbd> lub spację.</li>
 <li>Wybierz „Sprawdź kolejność”. Podpowiedź dotyczy pierwszego naruszenia zasad; zielone linie oznaczają poprawny początek.</li>
 <li>„Pomieszaj od nowa” losuje kolejność i zeruje licznik sprawdzeń. „Pokaż rozwiązanie” wymaga potwierdzenia.</li>
 </ol>
@@ -135,11 +126,6 @@
 </details>
       </aside>
     </div>
-    <footer class="foot">
-<span id="task-footer">
-</span>
-<span>Bez logowania. Bez serwera. W Twojej przeglądarce.</span>
-</footer>
   </main>
   <dialog id="solution-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-description">
 <h2 id="dialog-title">Odkryć poprawną kolejność?</h2>
@@ -158,6 +144,7 @@
 </script>
   <script src="../wspolne/silniki/parsons/reguly.js">
 </script>
+  <script src="../wspolne/silniki/narzedzia-autora/skroty.js"></script>
   <script src="../wspolne/silniki/parsons/silnik.js">
 </script>
 </body>

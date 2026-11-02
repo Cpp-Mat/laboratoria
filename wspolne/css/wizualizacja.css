@@ -17,3 +17,20 @@ main{max-width:var(--page-width);margin:auto;padding:30px 24px}h1,h2,p{margin-to
 .code-part.active{background:#d9e9bc;color:#294b19;outline:1px solid #709449;border-radius:3px;box-shadow:0 0 0 2px #d9e9bc}
 .code-line.code-context{min-width:0;align-items:flex-start;color:#59674c}
 .code-context code{white-space:pre-wrap;overflow-wrap:anywhere;min-width:0;flex:1}
+
+/* Oprawa wizualizacji zgodna z pozostałymi ćwiczeniami. Silniki i kolory etapów bez zmian. */
+.visualization-page .back-link{display:inline-block;font-size:13px;color:var(--muted);text-underline-offset:4px}
+.visualization-page .hero{display:block;margin-bottom:16px}
+.visualization-page .task-meta .eyebrow{margin:0;font-size:11px;letter-spacing:.13em}
+.visualization-page .hero-summary{display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:24px;align-items:start}
+.visualization-page .hero-summary .intro{margin:0;font-size:15px;line-height:1.65;max-width:920px}
+.visualization-page .key-idea{padding:12px 16px}
+.visualization-page .key-idea p{font-size:12px;line-height:1.7}
+.visualization-page .setup{padding:15px 18px;margin-bottom:16px}
+.visualization-page .setup-heading{margin-bottom:10px}
+.visualization-page .setup-heading .eyebrow{margin-bottom:5px}
+.visualization-page .panel-heading{padding:14px 18px}
+.visualization-page .controls{padding:13px 18px}
+.visualization-page .result-panel{padding:14px 18px}
+@media(max-width:850px){.visualization-page .hero-summary{grid-template-columns:1fr;gap:12px}.visualization-page .key-idea p{display:block}.visualization-page .hero{margin-bottom:14px}}
+@media(max-width:560px){.visualization-page .setup,.visualization-page .panel-heading,.visualization-page .controls,.visualization-page .result-panel{padding-left:13px;padding-right:13px}}

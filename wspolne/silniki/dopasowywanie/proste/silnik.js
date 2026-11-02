@@ -20,7 +20,13 @@
     for(let i=result.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[result[i],result[j]]=[result[j],result[i]];}
     return result;
   }
-  function feedback(text,type=""){ $("feedback").textContent=text;$("feedback").className="feedback "+type; }
+  function feedback(text,type="",nearSlots=false){
+    // Opcjonalny komunikat przy kategoriach: widoczny także podczas przeciągania.
+    const top=$("placement-feedback"),inline=!!top&&nearSlots;
+    if(top){top.hidden=!inline;top.textContent=inline?text:"";top.className="feedback placement-feedback "+type;}
+    const bottom=$("feedback");bottom.hidden=inline;
+    if(!inline){bottom.textContent=text;bottom.className="feedback "+type;}
+  }
   function clearResult(){ checked=null;$("success").hidden=true; }
   function focusCard(id){document.querySelector('[data-card="'+id+'"]')?.focus({preventScroll:true});}
 
@@ -56,6 +62,7 @@
 
   // Grupy i sloty wynikają wyłącznie z konfiguracji.
   function render(){
+    const mark=$("check-success");if(mark)mark.hidden=!checked?.complete;
     $("bank").replaceChildren();
     const unplaced=bankOrder.filter(id=>placements.get(id)===null);
     unplaced.forEach(id=>$("bank").append(chip(id)));
@@ -78,10 +85,10 @@
         const items=document.createElement("div");items.className="chips";
         const ids=bankOrder.filter(id=>placements.get(id)===slot.id);
         ids.forEach(id=>items.append(chip(id)));
-        if(!ids.length){const empty=document.createElement("span");empty.className="empty";empty.textContent="Przeciągnij tutaj typy";items.append(empty);}
+        if(!ids.length&&task.presentation?.slotPlaceholder!==false){const empty=document.createElement("span");empty.className="empty";empty.textContent="Przeciągnij tutaj typy";items.append(empty);}
         const place=document.createElement("button");place.type="button";place.className="place";place.dataset.place=slot.id;
         place.textContent="＋ Umieść tutaj";place.setAttribute("aria-label","Umieść wybrany typ: "+slot.title);
-        place.onclick=()=>{if(selected)put(selected,slot.id);else feedback("Najpierw wybierz klocek w banku lub w innej kategorii.");};
+        place.onclick=()=>{if(selected)put(selected,slot.id);else feedback("Najpierw wybierz klocek w banku lub w innej kategorii.","",true);};
         box.append(heading,desc,items,place);slots.append(box);
       });
       $("groups").append(panel);
@@ -95,7 +102,7 @@
   function put(id,slot){
     if(!rules.items.has(id)||!rules.slots.has(slot))return;
     if(mode==="help"&&!rules.accepts(id,slot)){
-      feedback("Ten typ nie pasuje do wybranej kategorii. "+rules.items.get(id).explanation,"error");
+      feedback("Ten typ nie pasuje do wybranej kategorii. "+rules.items.get(id).explanation,"error",true);
       const wrap=document.querySelector('[data-item="'+id+'"]');
       if(wrap){wrap.classList.remove("reject");void wrap.offsetWidth;wrap.classList.add("reject");}
       return;
@@ -165,6 +172,11 @@
   window.addEventListener("blur",cancelDrag);
   window.addEventListener("keydown",event=>{
     if(event.key==="Escape"){cancelDrag();const old=selected;selected=null;render();if(old)focusCard(old);feedback("Wybór anulowany.");}
+  });
+  window.AuthorShortcuts.bind(()=>{
+    cancelDrag();selected=null;clearResult();
+    task.items.forEach(item=>placements.set(item.id,item.accepts[0]));
+    render();feedback("Ułożono wszystkie typy. Możesz sprawdzić dopasowanie.");
   });
   render();
   feedback("Zacznij od dowolnego typu. W jednej kategorii może znaleźć się wiele klocków.");

@@ -1,2 +1,13 @@
 /* Lokalne ustawienia strony głównej. Motyw wspólny: wspolne/css/baza.css. */
 :root { --page-width: 1280px; --font-size: 16px; --body-leading: 1.6; }
+
+/* Katalog korzysta z tej samej oprawy kursu co ćwiczenia. */
+.catalog-page .hero{display:block;padding-bottom:26px}
+.catalog-page .hero h1{font-size:clamp(35px,4.5vw,54px);letter-spacing:-.045em;line-height:1.1;margin:11px 0 16px}
+.catalog-page .hero-content{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:32px;align-items:start}
+.catalog-page .hero-content>div>p{font-size:15px;max-width:920px}
+.catalog-page .hero-meta{margin-top:18px}
+.catalog-page .method{padding:20px 24px}
+.catalog-page .method h2{font-size:22px;margin-top:7px;margin-bottom:14px}
+.catalog-page .catalog-tools{margin-bottom:16px}
+@media(max-width:680px){.catalog-page .hero-content{grid-template-columns:1fr;gap:18px}.catalog-page .hero h1{white-space:normal;font-size:clamp(28px,6vw,38px)}.catalog-page .method{padding:18px}.catalog-page .help-link{font-size:11px;white-space:nowrap}.catalog-page header{gap:10px;flex-wrap:wrap}}

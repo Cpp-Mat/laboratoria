@@ -13,3 +13,31 @@
   --font-size: 16px;
   */
 }
+
+/* Wspólna oprawa pochodzi z pracownia.css. Układ pozostaje układanką kodu. */
+.back-link{display:inline-block;font-size:13px;color:var(--muted);text-underline-offset:4px}
+.intro{display:block;max-width:none;margin-bottom:18px}
+.intro p{max-width:920px;font-size:15px}
+h1{font-size:clamp(28px,3.8vw,50px)}
+.eyebrow{font-size:11px;letter-spacing:.13em}
+.panel-head{padding:15px 18px}
+.toolbar{padding:9px 18px}
+.code-scroll{max-height:660px;padding:9px 8px}
+.code-row{min-height:39px}
+.code{padding:7px 5px}
+.actions{align-items:center;padding:13px 18px}
+.actions .attempts{font-size:11px;color:var(--muted)}
+.feedback{margin:0 18px 15px}
+.brief,.examples,.help{padding:18px}
+.brief h2{margin-bottom:11px}
+.requirements li{margin:9px 0}
+.note{margin-top:14px}
+aside{gap:14px}
+@media(max-width:760px){.intro{padding:0}.layout{gap:18px}.code-scroll{padding:8px 3px}.panel-head,.actions{padding:13px}.feedback{margin-left:13px;margin-right:13px}}
+@media(max-width:600px){h1{font-size:clamp(28px,6vw,35px)}}
+
+.puzzle-instructions{margin:6px 0;font-size:12px;line-height:1.65}
+.instructions-link{display:inline-block;font-size:12px;text-underline-offset:3px}
+.panel-head>div{min-width:0}
+.panel-head .file{flex-shrink:0;align-self:flex-start;margin-top:4px}
+#puzzle-help{scroll-margin-top:14px}

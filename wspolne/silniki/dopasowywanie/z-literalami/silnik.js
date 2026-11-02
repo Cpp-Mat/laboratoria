@@ -33,7 +33,12 @@
     if(label)b.setAttribute('aria-label',label);
     return b;
   }
-  function feedback(text,kind=''){$('feedback').textContent=text;$('feedback').className='feedback '+kind;}
+  function feedback(text,kind='',nearSlots=false){
+    const top=$('placement-feedback'),inline=!!top&&nearSlots;
+    if(top){top.hidden=!inline;top.textContent=inline?text:'';top.className='feedback placement-feedback '+kind;}
+    const bottom=$('feedback');bottom.hidden=inline;
+    if(!inline){bottom.textContent=text;bottom.className='feedback '+kind;}
+  }
   function clearResult(){checked=null;$('success').hidden=true;}
   function focusSelected(kind,id){document.querySelector(kind==='type'?'[data-card="'+id+'"]':'[data-literal-card="'+id+'"]')?.focus({preventScroll:true});}
   function selectedIs(kind){return selected?.kind===kind;}
@@ -63,7 +68,7 @@
   function putType(typeId,slot){
     if(!rules.items.has(typeId) || (slot!==null&&!rules.slots.has(slot)))return;
     if(mode==='help'&&slot!==null&&!rules.accepts(typeId,slot)){
-      feedback('Ten typ nie pasuje do kategorii. '+rules.items.get(typeId).explanation,'error');reject(typeId,'type');return;
+      feedback('Ten typ nie pasuje do kategorii. '+rules.items.get(typeId).explanation,'error',true);reject(typeId,'type');return;
     }
     placements.set(typeId,slot);selected=null;clearResult();render();
     if(slot===null)feedback('Typ wrócił do banku razem z przypisanym literałem.');
@@ -76,7 +81,7 @@
   function putLiteral(literalId,typeId){
     if(!rules.literals.has(literalId)||(typeId!==null&&!rules.items.has(typeId)))return;
     if(mode==='help'&&typeId!==null&&!rules.acceptsLiteral(literalId,typeId)){
-      feedback('Ten literał nie został wybrany jako przykład dla wskazanego typu. '+rules.literals.get(literalId).explanation,'error');
+      feedback('Ten literał nie został wybrany jako przykład dla wskazanego typu. '+rules.literals.get(literalId).explanation,'error',true);
       reject(literalId,'literal');return;
     }
     // Zastąpienie przypisanego literału odkłada stary do banku.
@@ -123,7 +128,7 @@
     else{
       const place=action('＋ Dodaj literał','literal-place',()=>{
         if(selectedIs('literal'))putLiteral(selected.id,id);
-        else feedback('Najpierw wybierz literał w dolnym banku lub przy innym typie.');
+        else feedback('Najpierw wybierz literał w dolnym banku lub przy innym typie.','',true);
       },'Przypisz wybrany literał do typu '+item.label);
       literalZone.append(place);
     }
@@ -132,6 +137,7 @@
     return wrap;
   }
   function render(){
+    const mark=$('check-success');if(mark)mark.hidden=!checked?.complete;
     const unplaced=typeOrder.filter(id=>placements.get(id)===null);
     $('bank').replaceChildren(...unplaced.map(typeChip));
     if(!unplaced.length)$('bank').append(el('span','empty','Wszystkie typy są w kategoriach.'));
@@ -150,10 +156,10 @@
         const box=el('div','slot');box.dataset.slot=slot.id;
         const chips=el('div','chips'),ids=typeOrder.filter(id=>placements.get(id)===slot.id);
         chips.append(...ids.map(typeChip));
-        if(!ids.length)chips.append(el('span','empty','Przeciągnij tutaj typy'));
+        if(!ids.length&&task.presentation?.slotPlaceholder!==false)chips.append(el('span','empty','Przeciągnij tutaj typy'));
         const place=action('＋ Umieść tutaj','place',()=>{
           if(selectedIs('type'))putType(selected.id,slot.id);
-          else feedback('Najpierw wybierz klocek typu w banku lub innej kategorii.');
+          else feedback('Najpierw wybierz klocek typu w banku lub innej kategorii.','',true);
         },'Umieść wybrany typ w kategorii '+slot.title);
         place.dataset.place=slot.id;
         box.append(el('h4','',slot.title),el('p','',slot.description||''),chips,place);
@@ -254,6 +260,12 @@
       if(old)focusSelected(old.kind,old.id);
       feedback('Wybór anulowany.');
     }
+  });
+  window.AuthorShortcuts.bind(()=>{
+    const solved=rules.solution();cancelDrag();selected=null;clearResult();
+    for(const [id,slot] of solved.placements)placements.set(id,slot);
+    for(const [id,owner] of solved.literalOwners)literalOwners.set(id,owner);
+    render();feedback('Ułożono wszystkie typy i literały. Możesz sprawdzić dopasowanie.');
   });
   render();feedback('Zacznij od dowolnego typu lub literału. Literały można dodawać także do typów w banku.');
 })();

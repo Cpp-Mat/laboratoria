@@ -27,9 +27,7 @@
     text('task-heading-lead', task.ui.headingLead);
     text('task-accent', task.ui.accent);
     text('task-intro', task.ui.intro);
-    text('task-mark', task.ui.mark);
     text('task-file', task.ui.fileName);
-    text('task-footer', task.ui.footer);
     text('example-note', task.ui.exampleNote);
     document.getElementById('back-link').href = task.ui.backLink;
     // Pola *Html to zaufany tekst autora konfiguracji, nie dane studenta.
@@ -39,6 +37,14 @@
     document.getElementById('task-note').innerHTML = task.ui.noteHtml;
     document.getElementById('assessment-help').innerHTML = task.ui.assessmentHtml;
     document.getElementById('numbers-help').innerHTML = task.ui.numbersHtml;
+
+    const instructionsLink = document.getElementById('instructions-link');
+    instructionsLink?.addEventListener('click', () => {
+      const help = document.getElementById('puzzle-help');
+      help.open = true;
+      help.querySelector('summary').focus({preventScroll:true});
+      // Zwykły odnośnik #puzzle-help przewija stronę i zachowuje historię nawigacji.
+    });
 
     // 2. Stan i renderowanie listy linii.
     const list = document.getElementById('lines');
@@ -67,6 +73,8 @@
       feedback.append(heading, body);
     }
     function render(focusId, direction) {
+      const mark = document.getElementById('check-success');
+      if (mark) mark.hidden = checkedPrefix !== order.length || revealed;
       const formatted = indentedLines();
       list.replaceChildren();
       order.forEach((id, index) => {
@@ -252,6 +260,11 @@
       });
     });
     if (task.examples.length) selectExample(document.querySelector('[data-example]'));
+    window.AuthorShortcuts.bind(()=>{
+      if(dialog.open)dialog.close('cancel');draggedId=null;clearDrop();
+      order=pieces.map(piece=>piece.id);checkedPrefix=-1;revealed=false;
+      setFeedback('Układ jest gotowy.','Możesz sprawdzić poprawną kolejność przyciskiem „Sprawdź kolejność”.');render();
+    });
     reset();
   
 })();

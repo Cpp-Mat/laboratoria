@@ -6,18 +6,25 @@
   <title>JP_7_6 · Dwa indeksy w tablicy</title>
   <link rel="stylesheet" href="../wspolne/css/baza.css">
   <link rel="stylesheet" href="../wspolne/css/wizualizacja.css">
+  <link rel="stylesheet" href="../wspolne/css/pracownia.css">
   <link rel="stylesheet" href="styl.css">
   <script defer src="zadanie.js"></script>
   <script defer src="../wspolne/silniki/kompaktowanie-tablicy/reguly.js"></script>
   <script defer src="../wspolne/silniki/odtwarzacz/sterowanie.js"></script>
   <script defer src="../wspolne/silniki/odtwarzacz/kod.js"></script>
+  <script src="../wspolne/silniki/narzedzia-autora/skroty.js"></script>
   <script defer src="../wspolne/silniki/kompaktowanie-tablicy/silnik.js"></script>
 </head>
-<body>
-  <header class="topbar"><a id="back" href="../index.html#04_tablice">← Wróć do listy ćwiczeń</a><span class="brand">{ } &nbsp; Pracownia C++ <b id="task-id">JP_7_6</b></span></header>
+<body class="visualization-page">
+  <header><div class="brand"><span class="logo" aria-hidden="true">{ }</span> Języki programowania [1500-DII25JP]</div></header>
   <main>
-    <section class="hero"><div><p class="eyebrow" id="eyebrow"></p><h1 id="title"></h1><p class="intro" id="description"></p></div><aside class="key-idea"><span class="eyebrow">JEDNA TABLICA · DWA ZADANIA</span><p><b class="read-text">idx</b> odwiedza każdą komórkę.<br><b class="write-text">len</b> rośnie tylko po zachowaniu wartości.</p></aside></section>
-    <section class="setup panel" aria-labelledby="setup-title"><div class="setup-heading"><h2 id="setup-title">01 / Wybierz własne dane</h2><span id="input-count" class="subtle"></span></div>
+    <a id="back" class="back-link" href="../index.html#04_tablice">← Wróć do listy ćwiczeń</a>
+    <section class="hero">
+      <div class="task-meta"><p class="eyebrow" id="eyebrow"></p><span id="task-id" class="badge">JP_7_6</span><span class="activity-kind visualization"><img class="activity-icon" src="../wspolne/ikony/wizualizacja.svg" alt="" aria-hidden="true" width="16" height="16"><span>Wizualizacja</span></span></div>
+      <h1 id="title"></h1>
+      <div class="hero-summary"><p class="intro" id="description"></p><aside class="key-idea"><span class="eyebrow">JEDNA TABLICA · DWA ZADANIA</span><p><b class="read-text">idx</b> odwiedza każdą komórkę.<br><b class="write-text">len</b> rośnie tylko po zachowaniu wartości.</p></aside></div>
+    </section>
+    <section class="setup panel" aria-labelledby="setup-title"><div class="setup-heading"><div><p class="eyebrow">01 / PRZYGOTUJ DANE</p><h2 id="setup-title">Wybierz własne dane</h2></div><span id="input-count" class="subtle"></span></div>
       <form id="data-form" novalidate><div class="field values-field"><label for="values">Zawartość tablicy</label><textarea id="values" rows="2" spellcheck="false" aria-describedby="input-help input-error"></textarea></div><div class="field"><label for="remove-value">Wartość do usunięcia</label><input id="remove-value" type="text" inputmode="numeric" spellcheck="false" aria-describedby="input-error"></div><button type="submit" class="primary" id="apply">Zastosuj dane →</button></form>
       <p id="input-help" class="subtle">Oddziel liczby spacjami, przecinkami lub średnikami. Możesz zmieniać długość i kolejność tablicy.</p><p id="input-error" class="input-error" role="alert" hidden></p>
       <div class="presets"><span class="subtle">Wypróbuj:</span><div id="examples" class="preset-buttons" role="group" aria-label="Przykładowe dane"></div></div>
@@ -36,7 +43,6 @@
       </div>
       <aside class="panel code-panel" aria-labelledby="code-title"><div class="panel-heading"><div><p class="eyebrow">03 / ŚLEDŹ INSTRUKCJĘ</p><h2 id="code-title">Fragment Twojego programu</h2></div></div><div id="code" class="code" aria-label="Kod pętli C++ z podświetloną wykonywaną instrukcją"></div><p class="code-help">Dane z formularza inicjalizują <code>tab</code>. Podświetlamy osobno inicjalizację, warunek i zwiększenie indeksu w <code>for</code>, a potem instrukcje ciała. Inicjalizacja jest wykonywana tylko raz.</p><div class="iteration-facts"><strong>Po co są dwa indeksy?</strong><p><code>idx</code> określa, ile danych odwiedziliśmy. <code>len</code> określa, ile wartości zachowaliśmy. Ich role są różne także wtedy, gdy mają tę samą wartość.</p></div><details class="notes"><summary>Co warto zauważyć?</summary><div id="notes"></div></details></aside>
     </section>
-    <footer>Wizualizacja fragmentu programu JP_7_6 · zmieniamy zawartość i długość logiczną, nie pojemność tablicy.</footer>
   </main>
   <noscript>Włącz JavaScript, aby uruchomić wizualizację.</noscript>
 </body>
