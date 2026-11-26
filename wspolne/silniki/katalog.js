@@ -37,7 +37,7 @@
         if (visible) {visibleModules += 1; visibleExercises += matches;}
       });
       document.getElementById('no-results').hidden = visibleModules > 0;
-      document.getElementById('results').textContent = (visibleModules === 1 ? '1 dział' : visibleModules + (visibleModules === 0 ? ' działów' : ' działy')) + ' · ' + exerciseLabel(visibleExercises);
+      document.getElementById('results').textContent = (visibleModules === 1 ? '1 dział' : visibleModules + (visibleModules >= 2 && visibleModules <= 4 ? ' działy' : ' działów')) + ' · ' + exerciseLabel(visibleExercises);
     }
     filterButtons.forEach(button => button.addEventListener('click', () => {
       selectedFilter = button.dataset.filter;
