@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Sortowanie bąbelkowe przez wskaźniki</title>
+  <link rel="stylesheet" href="../wspolne/css/baza.css">
+  <link rel="stylesheet" href="../wspolne/css/wizualizacja.css">
+  <link rel="stylesheet" href="../wspolne/css/pracownia.css">
+  <link rel="stylesheet" href="styl.css">
+  <script defer src="../wspolne/silniki/odtwarzacz/sterowanie.js"></script>
+  <script defer src="zadanie.js"></script>
+</head>
+<body class="visualization-page">
+  <header><div class="brand"><span class="logo" aria-hidden="true">{ }</span> Języki programowania [1500-DII25JP]</div></header>
+  <main>
+    <a class="back-link" href="../index.html#05_wskazniki">← Wróć do listy ćwiczeń</a>
+    <section class="hero">
+      <div class="task-meta"><p class="eyebrow">05 / REFERENCJE I WSKAŹNIKI</p><span class="activity-kind visualization"><img class="activity-icon" src="../wspolne/ikony/wizualizacja.svg" alt="" width="16" height="16"> Wizualizacja</span></div>
+      <h1>Sortowanie bąbelkowe przez wskaźniki</h1>
+      <div class="hero-summary"><p class="intro">Porównuj sąsiednie elementy tablicy. Jeśli stoją w niewłaściwej kolejności, zamień je miejscami. Zobacz, jak największa wartość przesuwa się na koniec bieżącego obszaru podczas każdego przebiegu.</p><aside class="key-idea"><span class="eyebrow">JEDNA PĘTLA WHILE</span><p>Wskaźniki wyznaczają bieżącą parę i granicę przebiegu. Flaga <code>swapped</code> pozwala zakończyć sortowanie wcześniej.</p></aside></div>
+    </section>
+    <section class="setup panel"><div class="setup-heading"><div><p class="eyebrow">01 / PRZYGOTUJ DANE</p><h2>Wybierz tablicę</h2></div></div>
+      <form id="data-form"><div class="field values-field"><label for="values">Zawartość tablicy (1–20 liczb całkowitych)</label><input id="values" value="7, 3, 9, 1, 5, 8, 2, 6, 4, 0" spellcheck="false"></div><button class="primary" type="submit">Zastosuj dane →</button></form>
+      <p id="input-error" class="input-error" role="alert" hidden></p><p class="subtle" id="input-help">Oddziel liczby spacjami, przecinkami lub średnikami.</p>
+      <div class="presets"><span class="subtle">Wypróbuj:</span><div class="preset-buttons"><button class="preset" data-values="7, 3, 9, 1, 5, 8, 2, 6, 4, 0">Przykład z zadania</button><button class="preset" data-values="1, 2, 3, 4, 5">Posortowana</button><button class="preset" data-values="5, 4, 3, 2, 1">Malejąca</button><button class="preset" data-values="2, 1, 2, 1, 2">Powtórzenia</button></div></div>
+    </section>
+    <section class="workshop"><div class="visual-column"><section class="panel animation">
+      <div class="panel-heading"><div><p class="eyebrow">02 / OBSERWUJ TABLICĘ</p><h2>Wędrówka największej wartości</h2></div><span class="pill" id="pass"></span></div>
+      <div class="variables"><div class="variable"><span>first<small>początek</small></span><strong id="first"></strong></div><div class="variable read-var"><span>ptr<small>bieżący element</small></span><strong id="ptr"></strong></div><div class="variable write-var"><span>last<small>granica przebiegu</small></span><strong id="last"></strong></div><div class="variable"><span>swapped<small>zamiana w przebiegu?</small></span><strong id="swapped"></strong></div></div>
+      <div class="legend"><span class="read-text">■ porównywana para</span><span class="write-text">▼ last – granica</span><span class="result-text">■ gotowy fragment</span></div>
+      <div class="array-scroll" tabindex="0" role="region" aria-label="Tablica i położenia wskaźników"><div class="array-track" id="array-track"></div></div>
+      <p class="region-note" id="region"></p>
+      <div class="narration" role="status" aria-live="polite"><span class="phase" id="phase"></span><p id="message"></p></div>
+      <div class="controls"><div class="step-buttons"><button id="back-step">← Cofnij</button><button id="next" class="primary">Dalej – iteracja →</button><button id="instruction">Krok szczegółowy</button><button id="next-pass">Do końca przebiegu</button></div><div class="play-buttons"><button id="play">▶ Odtwarzaj</button><button id="restart">Od początku</button><label for="speed">Tempo</label><select id="speed"><option value="900">Wolno</option><option value="450" selected>Normalnie</option><option value="150">Szybko</option></select></div></div>
+    </section><section class="panel result-panel"><div class="result-heading"><h2>Stan tablicy</h2><span class="subtle" id="stats"></span></div><output class="result-values" id="result"></output><p class="subtle" id="result-note"></p><details class="original"><summary>Dane początkowe</summary><p id="original"></p></details></section></div>
+    <aside class="panel code-panel"><div class="panel-heading"><div><p class="eyebrow">03 / ZROZUM ALGORYTM</p><h2>Etapy pojedynczej pętli</h2></div></div><ol id="stages" class="stages"><li data-phase="ready">Sprawdź, czy można porównać kolejną parę.</li><li data-phase="compare">Porównaj wartości sąsiadów.</li><li data-phase="decision">W razie potrzeby zamień wartości.</li><li data-phase="advance">Przejdź do następnej pary.</li><li data-phase="end">Na granicy przebiegu sprawdź flagę zamian.</li><li data-phase="reset">Jeśli były zamiany: skróć obszar i zacznij od początku.</li><li data-phase="done">Brak zamian – koniec sortowania.</li></ol><div class="iteration-facts"><strong>Wskaźnik to nie wartość elementu</strong><p>Etykiety <code>a+0</code>, <code>a+1</code> itd. oznaczają położenia w tablicy, a nie rzeczywiste adresy liczbowe. Wysokość słupka przedstawia wartość elementu (dla liczb ujemnych słupek schodzi poniżej zera).</p></div><div class="iteration-facts"><strong>Dlaczego obszar się skraca?</strong><p>Po całym przebiegu największa wartość z aktywnego obszaru znajduje się na jego końcu. Nie trzeba jej ponownie porównywać.</p></div><p class="code-help">Wizualizacja pokazuje ideę algorytmu. Uzupełnij brakujące wyrażenia C++ samodzielnie.</p></aside></section>
+  </main>
+  <noscript>Włącz JavaScript, aby uruchomić wizualizację.</noscript>
+</body>
+</html>
